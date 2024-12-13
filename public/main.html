@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <link rel="stylesheet" href="main.css">
+  </head>
+  <body>
+  <div class="curved-background"></div>
+  <header class="header">
+    <img class="open-btn" id="openBtn" src="images/menu.png" alt="">
+    <div class="logo" >CHAM</div>
+    <div class="logo" >CHAM!</div>
+    <div class="rightside">
+      
+      
+    <p class="name"><p>
+    <img src="images/woman.png" alt="" class="profilepic">
+    </div>
+
+    <div id="popupMenu" class="menudis">
+    <img id="closeBtn" class="close-btn" src="images/avs345k7a.webp" alt="">
+        <a>Profile</a>
+        <a>Settings</a>
+        <a href="bestuse.html">Best use</a>
+        <a href="history.html">History</a>
+        <a>Curriculum</a> 
+
+        
+        <form id="addlearnermenu" class="formtab">
+          
+            
+            <input class="input" id="name" placeholder="Enter learner's name" type="text">
+            
+            <input class="input" id="age" placeholder="Enter learner's age" type="text">
+           
+            <input class="input" id="language" placeholder="Enter learner's language" type="text">
+            
+            <input class="input" id="class" placeholder="Enter learner's class" type="text">
+            
+            <input class="input" id="parent-name" placeholder="Enter parent's name" type="text">
+            
+            <input class="input" id="contact-info" placeholder="Enter contact information" type="text">
+            
+            
+          <button type="submit" class="addlearner">Add learner</button>
+          
+        </form>
+    
+  </header>
+  
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  
+
+
+  <div class="search-container">
+      
+    <input type="text" placeholder="search learners..." class="search-input">     
+    <i class="fas fa-search search-icon"></i>
+    <button class="newlearner" id="openbtnn"><i class="fas fa-plus "></i></button>
+  </div>
+  <div class="studentstab">
+ 
+  </div>
+  <!-- axios -->
+  <script
+  src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.21.1/axios.min.js"
+  integrity="sha512-bZS47S7sPOxkjU/4Bt0zrhEtWx0y0CRkhEp8IckzK+ltifIIE9EMIMTuT/mEzoIMewUINruDBIR/jJnbguonqQ=="
+  crossorigin="anonymous"
+  referrerpolicy="no-referrer"
+></script>
+  <script defer src="app.js"></script>
+  <script defer type="module" src="learner.js"></script>
+  </body>
+</html>
