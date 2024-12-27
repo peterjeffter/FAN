@@ -1,5 +1,3 @@
-
-
 document.addEventListener('DOMContentLoaded', () => {
   const username = document.querySelector('.name');
   const name = localStorage.getItem('name');
@@ -10,17 +8,16 @@ document.addEventListener('DOMContentLoaded', () => {
     console.error("Unable to find the username element or 'name' is not in localStorage");
   }
 
-  // The showstudents function will be called here after it's defined
+  // Initialize and display the student list
   showstudents();
 });
 
-const searchinput = document.querySelector('.search-input');
-const searchicon = document.querySelector('.search-icon');
+const searchInput = document.querySelector('.search-input');
+const searchIcon = document.querySelector('.search-icon');
 const form = document.getElementById('addlearnermenu');
-const deletebtn = document.querySelector('.delete-btn');
-const studenttabHTML = document.querySelector('.studentstab');
-const editbtn = document.querySelector('.edit-link');
+const studentTabHTML = document.querySelector('.studentstab');
 
+// Function to fetch and display students
 export const showstudents = async () => {
   const token = localStorage.getItem('token');
   try {
@@ -29,9 +26,8 @@ export const showstudents = async () => {
         Authorization: `Bearer ${token}`,
       },
     });
-    
-    console.log('Fetched students:', data); // Log the data to see what is being returned
-    
+
+    console.log('Fetched students:', data);
     const students = data;
 
     if (!Array.isArray(students)) {
@@ -40,64 +36,68 @@ export const showstudents = async () => {
     }
 
     if (students.length < 1) {
-      studenttabHTML.innerHTML = '<h5 class="empty-list">Add some learners</h5>';
+      studentTabHTML.innerHTML = '<h5 class="empty-list">Add some learners</h5>';
       return;
     }
 
-    const allstudents = students.map((student) => {
-      const { _id: studentID, name } = student;
-      return `
-        <div class="studentprofile" >  
-          <h5 class="studentname">${name}</h5>
-          
+    const allStudents = students
+      .map(({ _id: studentID, name }) => `
+        <div class="studentprofile">
+          <a href="studentpage.html" target="_blank" class="studentname">${name}</a>
           <div class="task-links">
-            <!-- edit link -->
-            <button class="edit-link">
-              <i class="fas fa-edit"></i>
-            </button>
-            <!-- delete btn -->
+            <button class="edit-link"><i class="fas fa-edit"></i></button>
             <button type="button" class="delete-btn" data-id="${studentID}">
               <i class="fas fa-trash"></i>
             </button>
           </div>
-        </div>`;
-    }).join('');
+        </div>
+      `)
+      .join('');
 
-    studenttabHTML.innerHTML = allstudents;
+    studentTabHTML.innerHTML = allStudents;
   } catch (error) {
     localStorage.removeItem('token');
     console.error('Error fetching learners:', error);
   }
 };
 
-const addstudentform = async (event) => {
-  const token = localStorage.getItem('token');
+// Function to add a student
+const addStudentForm = async (event) => {
   event.preventDefault();
-  const student = {   
+  const token = localStorage.getItem('token');
+  const student = {
     name: document.getElementById('name').value,
     grade: document.getElementById('class').value,
-    age: document.getElementById('age').value,    
+    age: document.getElementById('age').value,
     language: document.getElementById('language').value,
     parentname: document.getElementById('parent-name').value,
-    contactinfo: document.getElementById('contact-info').value
+    contactinfo: document.getElementById('contact-info').value,
   };
+
   try {
-    console.log(student);    
-    await axios.post('http://localhost:5000/speak/addlearner', student,  {
+    console.log(student);
+    await axios.post('http://localhost:5000/speak/addlearner', student, {
       headers: {
         Authorization: `Bearer ${token}`,
       },
     });
-    showstudents(); // Refresh the student list
+    showstudents();
     form.reset();
+    document.getElementById('addlearnermenu').classList.remove('openn');
   } catch (error) {
-    console.log(error);
+    if (error.message.includes('ValidationError')) {
+      console.log('Must enter details');
+    } else {
+      console.error('An unexpected error occurred:', error.message);
+    }
   }
 };
 
+// Function to delete a student
 const expelStudent = async (e) => {
   const token = localStorage.getItem('token');
   const deleteBtn = e.target.closest('.delete-btn');
+
   if (deleteBtn) {
     const id = deleteBtn.dataset.id;
     if (id) {
@@ -107,7 +107,7 @@ const expelStudent = async (e) => {
             Authorization: `Bearer ${token}`,
           },
         });
-        showstudents(); // Refresh the list after deletion
+        showstudents();
       } catch (error) {
         console.log('Error deleting student:', error);
       }
@@ -117,21 +117,22 @@ const expelStudent = async (e) => {
   }
 };
 
-const addnote = async (e) => {
+// Function to add a note
+const addNote = async (e) => {
   const token = localStorage.getItem('token');
-  
-  const editbtn = e.target.closest('.edit-link');
-  if (editbtn) {
-    const id = editbtn.dataset.id;
-    const note = noteinput.value
+  const editBtn = e.target.closest('.edit-link');
+  if (editBtn) {
+    const id = editBtn.dataset.id;
+    const note = document.getElementById('noteinput').value;
+
     if (id) {
       try {
-        await axios.patch(`http://localhost:5000/speak/${id}`,note, {
+        await axios.patch(`http://localhost:5000/speak/${id}`, { note }, {
           headers: {
             Authorization: `Bearer ${token}`,
           },
         });
-        showstudents(); // Refresh the list after deletion
+        showstudents();
       } catch (error) {
         console.log('Error adding note:', error);
       }
@@ -141,23 +142,27 @@ const addnote = async (e) => {
   }
 };
 
-
 // Event listeners
-form.addEventListener('submit', addstudentform);
+form.addEventListener('submit', addStudentForm);
 form.addEventListener('keypress', (event) => {
   if (event.key === 'Enter') {
-    addstudentform(event);
+    addStudentForm(event);
   }
 });
-studenttabHTML.addEventListener('click', expelStudent);
-studenttabHTML.addEventListener('click', (e) => {
-  const studentelement = e.target.closest('.studentprofile');
+
+studentTabHTML.addEventListener('click', expelStudent);
+studentTabHTML.addEventListener('click', (e) => {
+  const studentElement = e.target.closest('.studentprofile');
+  if (studentElement) {
+    console.log('Student profile clicked:', studentElement);
+  }
 });
+
+// Prevent edit/delete click from propagating to parent links
 document.addEventListener('DOMContentLoaded', () => {
-  const studentTabHTML = document.querySelector('.studentstab');
   studentTabHTML.addEventListener('click', (e) => {
     if (e.target.closest('.edit-link') || e.target.closest('.delete-btn')) {
-      e.stopPropagation(); // Prevent the click from reaching the anchor tag
+      e.stopPropagation();
     }
   });
 });

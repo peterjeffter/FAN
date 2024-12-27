@@ -96,6 +96,7 @@ input{
   display: flex;
   align-items: center;
   justify-content: center;
+  text-decoration: none;
 }
 .menudis.open{
   left: 0;
@@ -290,39 +291,38 @@ a:hover {
 .star-rating input[type="radio"]:checked ~ label {
   color: #000000;
 }
-.formtab{
+.formtab {
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: space-between;
   background-color: whitesmoke;
   width: 250px;
-  height: 250px;
+  height: 350px;
   position: absolute;
- top: 10%;
- left: 0;
- transition: left 0.1s ease-in-out;
- padding: 10px;
- visibility: hidden;
+  top: 100%; 
+  left: 10%; 
+  transition: top 0.6s ease-in-out, visibility 0.6s ease-in-out;
+  padding: 20px;
+  visibility: hidden;
+  z-index: 1000;
 }
-.formtab.openn{
-  visibility: visible;
-  left: 100%;
-
+.formtab.openn {
+  visibility: visible; 
+  top: 18%; 
+}
+.formtab.closee {
+  top: 100%;
+  visibility: hidden; 
 }
 .addlearner{
-  width: 70%;
-  height: 25px;
-  border-radius: 15px;
+  width: 250px;
+  height: 35px;
+  
   color: white;
-  background-color: rgb(158, 158, 34);
+  background-color: rgb(86, 72, 126);
   border: none;
-  cursor: pointer;
-  padding-left: 15px;
-  padding-right: 15px;
-  padding-top: 5px;
-  padding-bottom: 5px;
-  cursor: pointer;  
+  cursor: pointer; 
 }
 .task-links {
   display: flex;
