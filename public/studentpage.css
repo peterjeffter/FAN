@@ -5,6 +5,11 @@ body{
   justify-content: center;
   align-items: center;
 }
+.fa-solid{
+ position: absolute;
+ left: 2%;
+ top: 15%;
+}
 header{
   display: flex;
   justify-content: space-between;
@@ -34,7 +39,7 @@ h1{
 
 .scndname{
   font-size: 25px;
-  color: grey;
+  color: rgb(0, 0, 0);
 }
 
 

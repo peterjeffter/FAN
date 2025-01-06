@@ -9,13 +9,22 @@ const addteacherform = async (event)=>{
     password:document.getElementById('password').value,
   }
   try {   
-    const { data } = await axios.post('http://localhost:5000/speak/register', teacher );
-    localStorage.setItem('token', data.token)
-    localStorage.setItem('name', teacher.name)
-    console.log(data.token)
-    window.location.href="main.html"
+    if (teacher.name === '' ||
+      teacher.email=== ''||
+      teacher.password === ''
+    ) {
+      document.querySelector('.add-teacher-error').innerHTML = 'Must enter details'
+    } else {
+      const { data } = await axios.post('http://localhost:5000/speak/register', teacher );
+      localStorage.setItem('token', data.token)
+      localStorage.setItem('name', teacher.name)
+      console.log(data.token)
+      window.location.href="main.html"
+    }
+   
   } catch (error) {
     localStorage.removeItem('token')
+    
     console.log(error);
   }
 }
@@ -42,6 +51,7 @@ teacherform.addEventListener('keypress', (event) => {
       } catch (error) {
         localStorage.removeItem('token')
         console.log(error);
+        document.querySelector('.addteachermenu').innerHTML = '<h6 class="add-teacher-error">Must enter details<h6>'
       }
     }
 }});

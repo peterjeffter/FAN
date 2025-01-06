@@ -1,6 +1,7 @@
 document.addEventListener('DOMContentLoaded', function() { 
   // Function to open another HTML page
   function openProfilePage() {
+    localStorage.setItem('studentname', )
     window.location.href = 'studentpage.html'; 
   }
 

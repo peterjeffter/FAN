@@ -4,18 +4,19 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Document</title>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&family=Roboto+Condensed:ital,wght@0,100..900;1,100..900&family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
   <link rel="stylesheet" href="main.css">
   </head>
   <body>
   <div class="curved-background"></div>
   <header class="header">
-    <img class="open-btn" id="openBtn" src="images/menu.png" alt="">
-    <div class="logo" >CHAM</div>
-    <div class="logo" >CHAM!</div>
+    
+    <div class="logo" >CHAM! <br>CHAM!</div>
+
     <div class="rightside">  
-      
-    <p class="name"><p>
     <img src="images/woman.png" alt="" class="profilepic">
+    <span class="name"><span>
     </div>
 
     <div id="popupMenu" class="menudis">
@@ -26,24 +27,24 @@
         <a href="history.html">History</a>
         <a>Curriculum</a> 
     </div>
-        </header>
+  </header>
+  <i class="fa-solid fa-bars" class="open-btn" id="openBtn"></i>
+
         <form id="addlearnermenu" class="formtab">
           
-            
             <input class="input" id="name" placeholder="Enter learner's name" type="text">
             
             <input class="input" id="age" placeholder="Enter learner's age" type="text">
-           
-            <input class="input" id="language" placeholder="Enter learner's language" type="text">
+
+            <label class="input" id="language" placeholder= 'List of Languages'></label> <select id="language"></select>
             
-            <input class="input" id="class" placeholder="Enter learner's class" type="text">
+            <input class="input" id="parent-name" placeholder="Enter parent's name" type="text">           
             
-            <input class="input" id="parent-name" placeholder="Enter parent's name" type="text">
+            <input class="input" id="contact-info" placeholder="Enter email" type="text">
             
-            <input class="input" id="contact-info" placeholder="Enter contact information" type="text">
-            
-            
-          <button type="submit" class="addlearner">Add learner</button>
+            <span class="add-learner-error"></span>
+
+        <button type="submit" class="addlearner">Add learner</button>
           
         </form>
     
@@ -53,14 +54,13 @@
   
 
 
-  <div class="search-container">
-      
-    <input type="text" placeholder="search learners..." class="search-input">     
+  <div class="search-container">  
+    <input type="text" placeholder="search learners..." class="search-input">    
     <i class="fas fa-search search-icon"></i>
     <button class="newlearner" id="openbtnn"><i class="fas fa-plus "></i></button>
   </div>
   <div class="studentstab">
-   
+    
   </div>
   <!-- axios -->
   <script

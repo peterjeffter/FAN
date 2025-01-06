@@ -3,7 +3,7 @@ document.addEventListener('DOMContentLoaded', () => {
   const name = localStorage.getItem('name');
 
   if (username && name) {
-    username.innerHTML = `Welcome, ${name}`;
+    username.innerHTML = `${name}`;
   } else {
     console.error("Unable to find the username element or 'name' is not in localStorage");
   }
@@ -43,9 +43,10 @@ export const showstudents = async () => {
     const allStudents = students
       .map(({ _id: studentID, name }) => `
         <div class="studentprofile">
-          <a href="studentpage.html" target="_blank" class="studentname">${name}</a>
+          <a href="studentpage.html?name=${encodeURIComponent(name)}"  class="studentname">${name}</a>
+
           <div class="task-links">
-            <button class="edit-link"><i class="fas fa-edit"></i></button>
+            <button class="edit-link" data-id="${studentID}"><i class="fas fa-edit"></i></button>
             <button type="button" class="delete-btn" data-id="${studentID}">
               <i class="fas fa-trash"></i>
             </button>
@@ -56,6 +57,8 @@ export const showstudents = async () => {
 
     studentTabHTML.innerHTML = allStudents;
   } catch (error) {
+    
+    studentTabHTML.innerHTML = '<h5 class="empty-list">Oops, Error</h5>';
     localStorage.removeItem('token');
     console.error('Error fetching learners:', error);
   }
@@ -71,11 +74,19 @@ const addStudentForm = async (event) => {
     age: document.getElementById('age').value,
     language: document.getElementById('language').value,
     parentname: document.getElementById('parent-name').value,
-    contactinfo: document.getElementById('contact-info').value,
+    email: document.getElementById('contact-info').value,
   };
 
   try {
-    console.log(student);
+    if (student.name === '' ||
+      student.grade === '' ||
+      student.age === '' ||
+      student.language === '' ||
+      student.parentname === '' ||
+      student.email === '') {
+      document.querySelector('.add-learner-error').innerHTML = '*Must enter details*'
+    } else {
+      console.log(student);
     await axios.post('http://localhost:5000/speak/addlearner', student, {
       headers: {
         Authorization: `Bearer ${token}`,
@@ -84,8 +95,12 @@ const addStudentForm = async (event) => {
     showstudents();
     form.reset();
     document.getElementById('addlearnermenu').classList.remove('openn');
+    }
+    
   } catch (error) {
+    
     if (error.message.includes('ValidationError')) {
+      
       console.log('Must enter details');
     } else {
       console.error('An unexpected error occurred:', error.message);
