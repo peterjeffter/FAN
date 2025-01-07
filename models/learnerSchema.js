@@ -30,7 +30,7 @@ const learnerSchema = new mongoose.Schema({
     trim: true,
     maxlength: [50, 'name can not be more than 50 characters'],
   },
-  contactinfo:{
+  email:{
     type: String,
     required: [true, 'must provide information'],
     trim: true,

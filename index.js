@@ -18,7 +18,7 @@ app.use('/speak/', auth)
 app.use('/speak/', authentication, funcs)
 
 
-app.use(express.static('docs'))
+app.use(express.static('public'))
 
 
 
