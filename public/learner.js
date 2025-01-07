@@ -5,7 +5,7 @@ document.addEventListener('DOMContentLoaded', () => {
   if (username && name) {
     username.innerHTML = `${name}`;
   } else {
-    console.error("Unable to find the username element or 'name' is not in localStorage");
+    console.error("'name' is not in localStorage");
   }
 
   // Initialize and display the student list
