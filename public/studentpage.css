@@ -27,6 +27,19 @@ header{
 h1{
  width: 20px;
 }
+.language{
+  border: solid 1px black;
+  width: 100px;
+}
+.setprompt{
+  border: solid 1px black;
+  width: 100%;
+  padding: 2px;
+  margin-top: 5px;
+  text-align: left;
+  background: transparent;
+}
+
 .giftab{
   margin-top: 100px;
   display: flex;
@@ -36,12 +49,29 @@ h1{
 .gif{
   width:100%;
 }
-
-.scndname{
-  font-size: 25px;
+.flashy-text{
+  font-size:40px ;
+  color: white;
+  text-decoration: underline;
+}
+h2{
+  width: 50px;
   color: rgb(0, 0, 0);
 }
-
+.advert{
+  background-color: black;
+  position: fixed;
+  bottom: 0;
+  height: 40px;
+  z-index: 100;
+  left: 0;
+  right: 5%;
+  left: 5%;
+  color: white;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
 
 .star-rating {
 direction: rtl;
