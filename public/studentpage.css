@@ -4,6 +4,7 @@ body{
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  overflow: hidden;
 }
 .fa-solid{
  position: absolute;
@@ -29,16 +30,36 @@ h1{
 }
 .language{
   border: solid 1px black;
-  width: 100px;
+  width: 105px;
+  height: 18px;
+  border-radius: 30px;
 }
 .setprompt{
   border: solid 1px black;
-  width: 100%;
-  padding: 2px;
-  margin-top: 5px;
-  text-align: left;
-  background: transparent;
+  width:100px ;
+  height: 18px;
+  border-radius: 30px;
 }
+.setprompt-div{
+  position: relative;
+  margin-top: 5px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.flag{
+  width: 20px;
+  position: absolute;
+  right: 2%;
+}
+.prompt{
+ position: absolute;
+ bottom:26%;
+  color: black;
+  text-decoration: underline;
+  font-size: 40px;
+}
+
 
 .giftab{
   margin-top: 100px;
@@ -49,13 +70,6 @@ h1{
 .gif{
   width:100%;
 }
-.flashy-text{
-  font-size:40px ;
-  color: white;
-  text-decoration: underline;
-  
-}
-
 h2{
   width: 50px;
   color: rgb(0, 0, 0);
@@ -100,6 +114,7 @@ color: #f5b301;
 display: flex;
 flex-direction: column;
 align-items: center;
+justify-content: center;
 }
 .curved-background {
   height: 400px;
