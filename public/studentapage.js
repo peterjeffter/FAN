@@ -1,29 +1,66 @@
 document.getElementById('backButton').addEventListener('click', () => {
-    history.back();
-  });
+  history.back();
+});
+
 function getQueryParam(param) {
-    const urlParams = new URLSearchParams(window.location.search);
-    return urlParams.get(param);
-  }
+  const urlParams = new URLSearchParams(window.location.search);
+  return urlParams.get(param);
+}
 
-  // Extract the name from the URL
-  const studentName = getQueryParam('name');  
-  if (studentName) {
-    document.getElementById('scndname').textContent = decodeURIComponent(studentName);
-  } else {
-    document.getElementById('scndname').textContent = 'Anonymous Student';
-  }
+// Extract the name from the URL
+const studentName = getQueryParam('name');  
+if (studentName) {
+  document.getElementById('scndname').textContent = decodeURIComponent(studentName);
+} else {
+  document.getElementById('scndname').textContent = 'Anonymous Student';
+}
 
-const photos = [
-  "photos/PHOTO-2024-11-18-00-47-46.jpg", "photos/PHOTO-2024-11-18-00-47-47.jpg", "photos/PHOTO-2024-11-18-00-47-48.jpg", "photos/PHOTO-2024-11-18-00-47-49.jpg", "photos/PHOTO-2024-11-18-00-47-50.jpg", "photos/PHOTO-2024-11-18-00-47-51.jpg", "photos/PHOTO-2024-11-18-00-47-462.jpg", "photos/PHOTO-2024-11-18-00-47-463.jpg", "photos/PHOTO-2024-11-18-00-47-472.jpg", "photos/PHOTO-2024-11-18-00-47-473.jpg", "photos/PHOTO-2024-11-18-00-47-474.jpg", "photos/PHOTO-2024-11-18-00-47-475.jpg", "photos/PHOTO-2024-11-18-00-47-482.jpg", "photos/PHOTO-2024-11-18-00-47-483.jpg", "photos/PHOTO-2024-11-18-00-47-484.jpg", "photos/PHOTO-2024-11-18-00-47-485.jpg", "photos/PHOTO-2024-11-18-00-47-486.jpg", "photos/PHOTO-2024-11-18-00-47-492.jpg", "photos/PHOTO-2024-11-18-00-47-493.jpg", "photos/PHOTO-2024-11-18-00-47-502.jpg", "photos/PHOTO-2024-11-18-00-47-503.jpg", "photos/PHOTO-2024-11-18-00-47-504.jpg"
-]
-;
+// Start listening as soon as the page loads
+window.onload = function() {
+  recognition.start();
+};
+
+// Photo arrays for different categories
+const photoCategories = {
+  friends: [
+    "photos/friends/PHOTO-2024-11-18-00-47-49.jpg",
+    "photos/friends/PHOTO-2024-11-18-00-47-46.jpg", 
+    "photos/friends/PHOTO-2024-11-18-00-47-49.jpg", 
+    "photos/friends/PHOTO-2024-11-18-00-47-51.jpg"
+  ],
+  eat: [
+    "photos/eat/PHOTO-2024-11-18-00-47-462.jpg",
+    "photos/eat/PHOTO-2024-11-18-00-47-504.jpg"
+  ],
+  dad: [
+    "photos/dad/PHOTO-2024-11-18-00-47-50.jpg", 
+    "photos/dad/PHOTO-2024-11-18-00-47-485.jpg",
+    "photos/dad/PHOTO-2024-11-18-00-47-463.jpg"
+  ],
+  cat: [
+    "photos/cat/PHOTO-2024-11-18-00-47-493.jpg",
+    "photos/cat/PHOTO-2024-11-18-00-47-472.jpg"
+  ],
+  mom: [
+    "photos/mom/PHOTO-2024-11-18-00-47-48.jpg",
+    "photos/mom/PHOTO-2024-11-18-00-47-473.jpg",
+    "photos/mom/PHOTO-2024-11-18-00-47-475.jpg",
+    "photos/mom/PHOTO-2024-11-18-00-47-482.jpg",
+    "photos/mom/PHOTO-2024-11-18-00-47-483.jpg",
+    "photos/mom/PHOTO-2024-11-18-00-47-484.jpg",
+    "photos/mom/PHOTO-2024-11-18-00-47-486.jpg",
+    "photos/mom/PHOTO-2024-11-18-00-47-492.jpg"
+  ]
+};
+
 let currentPhotoIndex = 0;
+let currentCategory = 'friends'; // Default category
 
 // Function to display a photo
 function displayPhoto(index) {
   const imgElement = document.getElementById('photo');
-  imgElement.src = photos[index];
+  const currentArray = photoCategories[currentCategory]; // Use current category array
+  imgElement.src = currentArray[index];
 }
 
 // Voice recognition setup
@@ -42,21 +79,31 @@ recognition.onend = function() {
   recognition.start(); // Automatically restart recognition
 };
 
-// Start listening as soon as the page loads
-window.onload = function() {
-  recognition.start();
-};
+
+
 
 // Handle voice commands
 function handleCommand(command) {
   if (command.includes('next')) {
-    currentPhotoIndex = (currentPhotoIndex + 1) % photos.length;
+    currentPhotoIndex = (currentPhotoIndex + 1) % photoCategories[currentCategory].length;
   } else if (command.includes('previous')) {
-    currentPhotoIndex = (currentPhotoIndex - 1 + photos.length) % photos.length;
+    currentPhotoIndex = (currentPhotoIndex - 1 + photoCategories[currentCategory].length) % photoCategories[currentCategory].length;
   } else if (command.includes('show')) {
     const photoName = command.replace('show', '').trim();
-    const index = photos.findIndex(photo => photo.includes(photoName));
+    const currentArray = photoCategories[currentCategory];
+    const index = currentArray.findIndex(photo => photo.includes(photoName));
     if (index !== -1) currentPhotoIndex = index;
   }
   displayPhoto(currentPhotoIndex);
 }
+
+// Dropdown change listener
+document.querySelector('.category').addEventListener("change", () => {
+  const selectedValue = document.querySelector('.category').value;
+  
+  if (photoCategories[selectedValue]) {
+    currentCategory = selectedValue; // Switch to the selected category
+    currentPhotoIndex = 0; // Reset to the first photo of the selected category
+    displayPhoto(currentPhotoIndex);
+  }
+});
