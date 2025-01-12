@@ -84,18 +84,21 @@ recognition.onend = function() {
 
 // Handle voice commands
 function handleCommand(command) {
-  if (command.includes(promptInput.value.toLowerCase())) {
+  const userPrompt = promptInput.value.toLowerCase().trim(); // Get the user input and clean it
+  console.log("Command:", command); // Debugging
+  console.log("Prompt Input Value:", userPrompt); // Debugging
+  
+  if (userPrompt && command.includes(userPrompt)) {
+    // Only proceed if prompt input exists and command matches
     currentPhotoIndex = (currentPhotoIndex + 1) % photoCategories[currentCategory].length;
-  } else if (command.includes('previous')) {
-    currentPhotoIndex = (currentPhotoIndex - 1 + photoCategories[currentCategory].length) % photoCategories[currentCategory].length;
-  } else if (command.includes('show')) {
-    const photoName = command.replace('show', '').trim();
-    const currentArray = photoCategories[currentCategory];
-    const index = currentArray.findIndex(photo => photo.includes(photoName));
-    if (index !== -1) currentPhotoIndex = index;
+    console.log("Matched! Showing next photo.");
+  } else {
+    console.log("No match. Command ignored.");
   }
-  displayPhoto(currentPhotoIndex);
+  
+  displayPhoto(currentPhotoIndex); // Update the displayed photo
 }
+
 
 // Dropdown change listener
 document.querySelector('.category').addEventListener("change", () => {
