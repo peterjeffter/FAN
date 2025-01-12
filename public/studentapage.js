@@ -84,7 +84,7 @@ recognition.onend = function() {
 
 // Handle voice commands
 function handleCommand(command) {
-  if (command.includes('next')) {
+  if (command.includes(promptInput.value.toLowerCase())) {
     currentPhotoIndex = (currentPhotoIndex + 1) % photoCategories[currentCategory].length;
   } else if (command.includes('previous')) {
     currentPhotoIndex = (currentPhotoIndex - 1 + photoCategories[currentCategory].length) % photoCategories[currentCategory].length;
@@ -107,3 +107,11 @@ document.querySelector('.category').addEventListener("change", () => {
     displayPhoto(currentPhotoIndex);
   }
 });
+const promptInput = document.querySelector('.setprompt');
+const promptDisplay = document.querySelector('.prompt');
+
+// Add an event listener to the input element
+promptInput.addEventListener('keydown', (event) => {
+  if (event.key === 'Enter') {
+    promptDisplay.innerHTML = promptInput.value; 
+}});
