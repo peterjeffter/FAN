@@ -117,11 +117,6 @@ input{
   flex-direction: column;
   align-items: center;
 }
-.open-btn{
-  cursor: pointer;
-  width: 15px;
-  margin-left: 5px;
-}
 
 .studentheader{
   font-size: 30px;
@@ -149,7 +144,10 @@ input{
 .edit-link {
   cursor: pointer;
   border: none;
-  background: transparent;
+  background-color: rgb(212, 203, 203);
+  width: 25px;
+  height: 25px;
+  border-radius: 12px;
 }
 
 .studentprofile{
@@ -182,7 +180,7 @@ h1{
   position: relative;
   margin-top: 90px;
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
   justify-content: space-between;
   align-items: center;
  
@@ -389,4 +387,83 @@ a:hover {
 .add-learner-error{
   color: red;
   font-size: 12px;
+}
+
+.notes-div {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  background-color: white;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 5px 0;
+  align-items: center;
+  height: 80px;
+  transition: max-height 0.3s ease; /* Smooth transition for max-height */
+  overflow: hidden; /* Hide content if the height is small */
+  visibility: hidden;
+  max-height: 80px; /* Default height */
+}
+
+.notes-div.action {
+  visibility: visible;
+}
+
+.notes-div.expanded {
+  max-height: 300px; /* Max height for expanded state */
+}
+
+.note-name-sec {
+  width: 95%;
+  display: flex;
+  justify-content: space-between;
+}
+
+.note-input-sec {
+  display: flex;
+  align-items: center;
+  width: 95%;
+  column-gap: 5px;
+  height: 30px;
+  contain: content;
+}
+
+.note-input-sec input {
+  border: none;
+  background-color: rgb(207, 199, 199);
+  padding-left: 5px;
+}
+
+.new-note-button {
+  border: none;
+  background-color: rgb(207, 199, 199);
+  width: 30px;
+  height: 30px;
+}
+
+.note-bubble {
+  background-color: #f0f8ff;
+  color: #333;
+  padding: 8px 12px;
+  border-radius: 16px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+  font-size: 14px;
+  margin-top: 10px; /* Added some margin to avoid collision with other elements */
+}
+
+.notes-container {
+  position: relative;
+  background-color: #fc2525;
+  z-index: 1000;
+  height: auto; /* Adjust height dynamically */
+  width: 100%;
+  display: none;
+  margin-top: 40px;
+}
+
+.notes-div.expanded .notes-container {
+  display: block; /* Show container only when expanded */
 }

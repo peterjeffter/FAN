@@ -1,48 +1,70 @@
-document.getElementById('openBtn').addEventListener('click', function() {
-  document.getElementById('popupMenu').classList.add('open');
-});
-
-document.getElementById('closeBtn').addEventListener('click', function() {
-  document.getElementById('popupMenu').classList.remove('open');
-});
-document.getElementById('openbtnn').addEventListener('click', function() {
-  document.getElementById('addlearnermenu').classList.toggle('openn');
-  
-});
-
-
-document.addEventListener('click', function(event) {
-  if (!document.getElementById('popupMenu').contains(event.target) &&
-      !document.getElementById('openBtn').contains(event.target)) {
-    document.getElementById('popupMenu').classList.remove('open');
-  }
-
-  if (!document.getElementById('addlearnermenu').contains(event.target) &&
-      !document.getElementById('openbtnn').contains(event.target)) {
-    document.getElementById('addlearnermenu').classList.remove('openn');
-  }
-
-});
-
-document.querySelectorAll('.studentmenu').forEach(function(menuBtn) {
-  menuBtn.addEventListener('click', function(event) {
-    event.stopPropagation();
-
-    document.querySelectorAll('.minimenu').forEach(function(miniMenu) {
-      if (miniMenu !== menuBtn.nextElementSibling) {
-        miniMenu.classList.remove('open');
-      }
-    });
-
-    const miniMenu = menuBtn.nextElementSibling;
-    miniMenu.classList.toggle('open');
+document.addEventListener("DOMContentLoaded", () => {
+  // Open and close the menu
+  document.getElementById('openbtnn').addEventListener('click', function () {
+    document.getElementById('addlearnermenu').classList.toggle('openn');
   });
-});
 
-document.addEventListener('click', function(event) {
-  document.querySelectorAll('.minimenu').forEach(function(miniMenu) {
-    if (!miniMenu.contains(event.target)) {
-      miniMenu.classList.remove('open');
+  document.addEventListener('click', function (event) {
+    const addLearnerMenu = document.getElementById('addlearnermenu');
+    const openBtn = document.getElementById('openbtnn');
+    
+    if (
+      !addLearnerMenu.contains(event.target) &&
+      !openBtn.contains(event.target)
+    ) {
+      addLearnerMenu.classList.remove('openn');
+    }
+  });
+
+  // Display note popup
+  const openNotesButton = document.getElementById("openNotes");
+  const notesPopup = document.querySelector(".notes-div");
+
+  openNotesButton.addEventListener("click", () => {
+    notesPopup.classList.add("action");
+  });
+
+  // Close popup when clicking outside the content
+  document.addEventListener("click", (event) => {
+    if (!notesPopup.contains(event.target) && !openNotesButton.contains(event.target)) {
+      notesPopup.classList.remove("action");
+    }
+  });
+
+  // Expand note
+  document.querySelector('.expand-note').addEventListener('click', function () {
+    const notesDiv = document.querySelector('.notes-div');
+    const toggleIcon = document.querySelector('.expand-note');
+
+    // Toggle the expanded class
+    notesDiv.classList.toggle('expanded');
+
+    // Change the icon based on the expanded state
+    toggleIcon.classList.toggle('fa-up-right-and-down-left-from-center');
+    toggleIcon.classList.toggle('fa-down-left-and-up-right-to-center');
+  });
+
+  // Add a new note
+  const noteInput = document.querySelector(".note-input");
+  const newNoteButton = document.querySelector(".new-note-button");
+  const notesContainer = document.querySelector(".notes-container");
+
+  newNoteButton.addEventListener("click", () => {
+    const noteText = noteInput.value.trim();
+
+    if (noteText) {
+      // Create a new note bubble
+      const noteBubble = document.createElement("div");
+      noteBubble.className = "note-bubble";
+      noteBubble.textContent = noteText;
+
+      // Add the bubble to the container
+      notesContainer.appendChild(noteBubble);
+
+      // Clear the input field
+      noteInput.value = "";
+    } else {
+      alert("Please enter a note before adding!");
     }
   });
 });

@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>WhatsApp-like Chat Bubble</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    background-color: #e5ddd5; /* Light background color */
+}
+
+.chat-container {
+    width: 100%;
+    max-width: 500px;
+    margin: 50px auto;
+    padding: 10px;
+    background-color: #fff;
+    border-radius: 10px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.chat-bubble {
+    max-width: 70%;
+    padding: 10px 15px;
+    border-radius: 20px;
+    margin: 5px 0;
+    font-size: 16px;
+    line-height: 1.5;
+    position: relative;
+}
+
+.incoming {
+    background-color: #e4e6eb; /* Light gray for incoming messages */
+    align-self: flex-start; /* Align to left */
+    border-top-left-radius: 0;
+}
+
+.outgoing {
+    background-color: #0078ff; /* Blue for outgoing messages */
+    color: white;
+    align-self: flex-end; /* Align to right */
+    border-top-right-radius: 0;
+}
+
+.chat-bubble p {
+    margin: 0;
+}
+
+.chat-bubble::after {
+    content: "";
+    position: absolute;
+    width: 0;
+    height: 0;
+    border-left: 10px solid transparent;
+    border-right: 10px solid transparent;
+}
+
+.incoming::after {
+    top: 50%;
+    left: -10px;
+    border-top: 10px solid #e4e6eb;
+    transform: translateY(-50%);
+}
+
+.outgoing::after {
+    top: 50%;
+    right: -10px;
+    border-top: 10px solid #0078ff;
+    transform: translateY(-50%);
+}
+
+    </style>
+</head>
+<body>
+    <div class="chat-container">
+        <!-- Incoming Message -->
+        <div class="chat-bubble incoming">
+            <p>Hello! How are you?</p>
+        </div>
+        
+        <!-- Outgoing Message -->
+        <div class="chat-bubble outgoing">
+            <p>I'm good, thank you! How about you?</p>
+        </div>
+        
+        <!-- Incoming Message -->
+        <div class="chat-bubble incoming">
+            <p>I'm doing great! Thanks for asking.</p>
+        </div>
+    </div>
+</body>
+</html>
