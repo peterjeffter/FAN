@@ -60,8 +60,20 @@
   </div>
 
   <div class="studentstab">
-    
-    <div id="Notes-div" class="notes-div">
+    hhh
+  </div>
+  <div class="studentprofile">
+    <a href="studentpage.html?name=${encodeURIComponent(name)}"  class="studentname">${name}</a>
+  
+      <div class="task-links">
+        <button id="openNotes" type="button" class="edit-link" data-id="${studentID}">
+          <i class="fas fa-edit"></i>
+        </button>
+        <button type="button" class="delete-btn" data-id="${studentID}">
+          <i class="fas fa-trash"></i>
+        </button>
+      </div>
+      <div id="Notes-div" class="notes-div">
       <div class="note-name-sec">
         <span>Toryila's notes</span>
         <i class="fa-solid fa-up-right-and-down-left-from-center expand-note"></i>
@@ -72,7 +84,7 @@
       </div>
       <div class="notes-container"></div>
     </div>
-  </div>
+    </div>
 
   
   <script

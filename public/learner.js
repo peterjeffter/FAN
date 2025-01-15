@@ -53,6 +53,7 @@ export const showstudents = async () => {
           <i class="fas fa-trash"></i>
         </button>
       </div>
+      </div>
       `)
       .join('');
 
