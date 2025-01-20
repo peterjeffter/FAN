@@ -28,7 +28,7 @@ header{
 h1{
  width: 20px;
 }
-.language{
+.category{
   border: solid 1px black;
   width: 105px;
   height: 18px;
@@ -89,26 +89,6 @@ h2{
   align-items: center;
 }
 
-.star-rating {
-direction: rtl;
-font-size: 1em;
-display: inline-block;
-}
-
-.star-rating input[type="radio"] {
-display: none;
-}
-
-.star-rating label {
-color: #ccc;
-cursor: pointer;
-}
-
-.star-rating label:hover,
-.star-rating label:hover ~ label,
-.star-rating input[type="radio"]:checked ~ label {
-color: #f5b301;
-}
 
 .rightside{
 display: flex;

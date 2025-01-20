@@ -44,16 +44,17 @@ export const showstudents = async () => {
       .map(({ _id: studentID, name }) => `
       <div class="studentprofile">
       <a href="studentpage.html?name=${encodeURIComponent(name)}"  class="studentname">${name}</a>
-  
-      <div class="task-links">
-        <button id="openNotes" type="button" class="edit-link" data-id="${studentID}">
-          <i class="fas fa-edit"></i>
-        </button>
-        <button type="button" class="delete-btn" data-id="${studentID}">
-          <i class="fas fa-trash"></i>
-        </button>
+    
+        <div class="task-links">
+          <button id="openNotes" type="button" class="edit-link" data-id="${studentID}">
+            <i class="fas fa-edit"></i>
+          </button>
+          <button type="button" class="delete-btn" data-id="${studentID}">
+            <i class="fas fa-trash"></i>
+          </button>
+        </div>
       </div>
-      </div>
+
       `)
       .join('');
 
