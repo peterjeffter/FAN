@@ -1,7 +1,7 @@
 searchicon.addEventListener('click', async ()=>{
   try {
     console.log(searchinput.value)
-    const filtered = await axios.get(`http://localhost:5000/speak`)
+    const filtered = await axios.get(`http://localhost:8000/speak`)
     const filtereddata= filtered.data
     console.log(filtereddata)
     const somestudents = filtereddata.map((student) => {

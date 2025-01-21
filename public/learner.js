@@ -21,13 +21,14 @@ const studentTabHTML = document.querySelector('.studentstab');
 export const showstudents = async () => {
   const token = localStorage.getItem('token');
   try {
-    const { data } = await axios.get('http://localhost:5000/speak/', {
+    const { data } = await axios.get('http://localhost:8000/speak/', {
       headers: {
         Authorization: `Bearer ${token}`,
       },
     });
 
     console.log('Fetched students:', data);
+
     const students = data;
 
     if (!Array.isArray(students)) {
@@ -43,29 +44,36 @@ export const showstudents = async () => {
     const allStudents = students
       .map(({ _id: studentID, name }) => `
       <div class="studentprofile">
-      <a href="studentpage.html?name=${encodeURIComponent(name)}"  class="studentname">${name}</a>
-    
+        <a href="studentpage.html?name=${encodeURIComponent(name)}" class="studentname">${name}</a>
         <div class="task-links">
-          <button id="openNotes" type="button" class="edit-link" data-id="${studentID}">
+          <button type="button" class="edit-link" data-id="${studentID}">
             <i class="fas fa-edit"></i>
           </button>
           <button type="button" class="delete-btn" data-id="${studentID}">
             <i class="fas fa-trash"></i>
           </button>
         </div>
+        <div class="notes-div">
+          <div class="note-name-sec">
+            <span>${name}'s notes</span>
+            <i class="fa-solid fa-up-right-and-down-left-from-center expand-note"></i>
+          </div>
+          <div class="note-input-sec">
+            <input class="note-input" type="text" placeholder="ADD NOTE">
+            <button class="new-note-button"><i class="fas fa-plus"></i></button>
+          </div>
+          <div class="notes-container"></div>
+        </div>
       </div>
-
       `)
       .join('');
 
     studentTabHTML.innerHTML = allStudents;
   } catch (error) {
-    
-    studentTabHTML.innerHTML = '<h5 class="empty-list">Oops, Error</h5>';
-    localStorage.removeItem('token');
-    console.error('Error fetching learners:', error);
+    console.error('Error fetching students:', error);
   }
 };
+
 
 // Function to add a student
 const addStudentForm = async (event) => {
@@ -90,7 +98,7 @@ const addStudentForm = async (event) => {
       document.querySelector('.add-learner-error').innerHTML = '*Must enter details*'
     } else {
       console.log(student);
-    await axios.post('http://localhost:5000/speak/addlearner', student, {
+    await axios.post('http://localhost:8000/speak/addlearner', student, {
       headers: {
         Authorization: `Bearer ${token}`,
       },
@@ -120,7 +128,7 @@ const expelStudent = async (e) => {
     const id = deleteBtn.dataset.id;
     if (id) {
       try {
-        await axios.delete(`http://localhost:5000/speak/${id}`, {
+        await axios.delete(`http://localhost:8000/speak/${id}`, {
           headers: {
             Authorization: `Bearer ${token}`,
           },
@@ -145,7 +153,7 @@ const addNote = async (e) => {
 
     if (id) {
       try {
-        await axios.patch(`http://localhost:5000/speak/${id}`, { note }, {
+        await axios.patch(`http://localhost:8000/speak/${id}`, { note }, {
           headers: {
             Authorization: `Bearer ${token}`,
           },
@@ -186,3 +194,56 @@ document.addEventListener('DOMContentLoaded', () => {
 });
 
 
+document.addEventListener('DOMContentLoaded', () => {
+  // Event listener for the Edit button
+  studentTabHTML.addEventListener('click', (e) => {
+    const editBtn = e.target.closest('.edit-link');
+    
+    if (editBtn) {
+      const studentID = editBtn.dataset.id;
+      const studentProfile = editBtn.closest('.studentprofile');
+      
+      if (studentProfile) {
+        toggleEditMode(studentProfile, studentID);
+      }
+    }
+  });
+
+  // Function to toggle between edit and view mode
+  function toggleEditMode(profile, studentID) {
+    const nameField = profile.querySelector('.studentname');
+    const editBtn = profile.querySelector('.edit-link');
+    
+    // Check if profile is already in edit mode
+    if (profile.classList.contains('edit-mode')) {
+      // If in edit mode, submit the updated info
+      const updatedName = profile.querySelector('.name-input').value;
+      updateStudentInfo(studentID, updatedName);
+      
+      // Switch back to view mode
+      profile.classList.remove('edit-mode');
+      nameField.textContent = updatedName;
+    } else {
+      // If in view mode, turn fields into editable inputs
+      profile.classList.add('edit-mode');
+      nameField.innerHTML = `<input class="name-input" type="text" value="${nameField.textContent}">`;
+      editBtn.innerHTML = '<i class="fas fa-save"></i>'; // Change to "save" icon
+    }
+  }
+
+  // Function to update student information via API
+  async function updateStudentInfo(studentID, updatedName) {
+    const token = localStorage.getItem('token');
+    
+    try {
+      await axios.patch(`http://localhost:8000/speak/${studentID}`, { name: updatedName }, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+      console.log('Student info updated successfully!');
+    } catch (error) {
+      console.error('Error updating student info:', error);
+    }
+  }
+});
