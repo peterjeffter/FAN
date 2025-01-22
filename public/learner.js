@@ -53,17 +53,7 @@ export const showstudents = async () => {
             <i class="fas fa-trash"></i>
           </button>
         </div>
-        <div class="notes-div">
-          <div class="note-name-sec">
-            <span>${name}'s notes</span>
-            <i class="fa-solid fa-up-right-and-down-left-from-center expand-note"></i>
-          </div>
-          <div class="note-input-sec">
-            <input class="note-input" type="text" placeholder="ADD NOTE">
-            <button class="new-note-button"><i class="fas fa-plus"></i></button>
-          </div>
-          <div class="notes-container"></div>
-        </div>
+       
       </div>
       `)
       .join('');
@@ -194,56 +184,88 @@ document.addEventListener('DOMContentLoaded', () => {
 });
 
 
+
+////notes section
 document.addEventListener('DOMContentLoaded', () => {
   // Event listener for the Edit button
   studentTabHTML.addEventListener('click', (e) => {
     const editBtn = e.target.closest('.edit-link');
-    
+
     if (editBtn) {
       const studentID = editBtn.dataset.id;
       const studentProfile = editBtn.closest('.studentprofile');
-      
+
       if (studentProfile) {
-        toggleEditMode(studentProfile, studentID);
+        createAndToggleNotesDiv(studentProfile, studentID, name);
       }
     }
   });
 
-  // Function to toggle between edit and view mode
-  function toggleEditMode(profile, studentID) {
-    const nameField = profile.querySelector('.studentname');
-    const editBtn = profile.querySelector('.edit-link');
-    
-    // Check if profile is already in edit mode
-    if (profile.classList.contains('edit-mode')) {
-      // If in edit mode, submit the updated info
-      const updatedName = profile.querySelector('.name-input').value;
-      updateStudentInfo(studentID, updatedName);
-      
-      // Switch back to view mode
-      profile.classList.remove('edit-mode');
-      nameField.textContent = updatedName;
-    } else {
-      // If in view mode, turn fields into editable inputs
-      profile.classList.add('edit-mode');
-      nameField.innerHTML = `<input class="name-input" type="text" value="${nameField.textContent}">`;
-      editBtn.innerHTML = '<i class="fas fa-save"></i>'; // Change to "save" icon
-    }
-  }
+  // Function to create and toggle the visibility of the notes section
+  function createAndToggleNotesDiv(profile, studentID, name) {
+    let notesDiv = profile.querySelector('.notes-div');
 
-  // Function to update student information via API
-  async function updateStudentInfo(studentID, updatedName) {
-    const token = localStorage.getItem('token');
-    
-    try {
-      await axios.patch(`http://localhost:8000/speak/${studentID}`, { name: updatedName }, {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
+    // If the notes-div doesn't exist, create it
+    if (!notesDiv) {
+      notesDiv = document.createElement('div');
+      notesDiv.className = 'notes-div';
+
+      // Add content to the notes-div
+      notesDiv.innerHTML = `
+        <div class="note-name-sec">
+          <i class="fa-solid fa-xmark close-icon"></i>
+          <span>student's Notes</span>
+          <i class="fa-solid fa-up-right-and-down-left-from-center expand-note"></i>
+        </div>
+        <div class="note-input-sec">
+          <input class="note-input" type="text" placeholder="ADD NOTE">
+          <button class="new-note-button"><i class="fas fa-plus"></i></button>
+        </div>
+        <div class="notes-container"></div>
+      `;
+
+      // Append the notes-div to the student profile
+      profile.appendChild(notesDiv);
+
+      // Add event listener to the close icon
+      const closeIcon = notesDiv.querySelector('.close-icon');
+      closeIcon.addEventListener('click', () => {
+        notesDiv.style.display = 'none'; // Hide the notes-div
       });
-      console.log('Student info updated successfully!');
-    } catch (error) {
-      console.error('Error updating student info:', error);
+
+      // Add event listener to the expand icon
+      const expandIcon = notesDiv.querySelector('.expand-note');
+      expandIcon.addEventListener('click', () => {
+        notesDiv.classList.toggle('expanded');
+        expandIcon.classList.toggle('fa-up-right-and-down-left-from-center');
+        expandIcon.classList.toggle('fa-down-left-and-up-right-to-center');
+      });
+
+      // Add event listener to the add note button
+      const addNoteButton = notesDiv.querySelector('.new-note-button');
+      addNoteButton.addEventListener('click', () => {
+        const noteInput = notesDiv.querySelector('.note-input');
+        const notesContainer = notesDiv.querySelector('.notes-container');
+        const noteText = noteInput.value.trim();
+
+        if (noteText) {
+          // Create a new note bubble
+          const noteBubble = document.createElement('div');
+          noteBubble.className = 'note-bubble';
+          noteBubble.textContent = noteText;
+
+          // Add the bubble to the container
+          notesContainer.appendChild(noteBubble);
+
+          // Clear the input field
+          noteInput.value = '';
+        } else {
+          alert('Please enter a note before adding!');
+        }
+      });
     }
+
+    // Toggle visibility of the notes-div
+    notesDiv.style.display = notesDiv.style.display === 'block' ? 'none' : 'block';
   }
 });

@@ -151,6 +151,7 @@ h1{
   align-items: center;
   overflow-y: auto;
   overflow-x: hidden;
+  height: 100vh;
 }
 
 
@@ -313,75 +314,46 @@ a:hover {
   color: red;
   font-size: 12px;
 }
-.notes-div{
+.notes-div {
   position: absolute;
-  left: 0;
-  right: 0;
   top: 0;
   bottom: 0;
-  background-color: white;
+  left: 0;
+  right: 0;
+  background-color: rgb(228, 224, 224);
+  display: none;
+  transition: height 0.3s ease, opacity 0.3s ease;
+  height: 70px; /* Default height */
+  overflow: hidden;
+  z-index: 1000;
+  padding: 5px;
+}
+
+.notes-div.expanded {
+  height: 300px; /* Expanded height */
+}
+
+.note-name-sec {
   display: flex;
-  flex-direction: column;
   justify-content: space-between;
-  padding:5px  0 5px  0  ;
-  align-items: center;
-  height: 80px;
- transition: height 0.3s ease; /* Smooth height transition */
- overflow: hidden; /* Hide content if the height is small */
- visibility: hidden;
- }
- .notes-div.action{
-   visibility: visible;
- }
- .notes-div.expanded{
-   height: 300px;
- }
- .note-name-sec{
-   width: 95%;
-   display: flex;
-   justify-content: space-between;
- }
- .note-input-sec{
-   display: flex;
-   align-items: center;
-   width: 95%;
-   column-gap: 5px;
-   height: 30px;
-   contain: content;
- }
- .note-input-sec input{
-   border: none;
-   background-color: rgb(207, 199, 199);
-   padding-left: 5px;
-  
- }
- .new-note-button{
-   border: none;
-   background-color: rgb(207, 199, 199);
-   width: 30px;
-   height: 30px;
- }
- .note-bubble {
-   background-color: #f0f8ff;
-   color: #333;
-   padding: 8px 12px;
-   border-radius: 16px;
-   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
-   font-size: 14px;
-   position: absolute;
-   right: 0;
-   top:25%;
- }
- .notes-container{
-   position: absolute;
-   background-color: #fc2525;
-   z-index: 1000;
-   height: 70%;
-   width: 100%;
-   display: none;
-   margin-top: 40px;
- }
- 
- .notes-div.expanded .notes-container {
-   display: block; /* Show only when expanded */
- }
+}
+
+.note-input-sec {
+  display: flex;
+  position: absolute;
+  bottom: 5px;
+  width: 100%;
+}
+
+.notes-container {
+  margin-top: 10px;
+  overflow-y: auto;
+  max-height: 200px; /* Adjust to fit expanded height */
+}
+
+.note-bubble {
+  background-color: #f0f0f0;
+  padding: 5px 10px;
+  margin: 5px 0;
+  border-radius: 5px;
+}
