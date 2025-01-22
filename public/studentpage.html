@@ -40,8 +40,21 @@
 
       <img id="photo" class="gif" src="photos/friends/PHOTO-2024-11-18-00-47-51.jpg" alt="">
       
-     <h3 class="prompt"></h3>
-
+      <svg width="350" height="200" viewBox="0 0 400 200">
+        <!-- Define a semicircle path -->
+        <defs>
+          <path id="semicirclePath" d="M 55,150 A 150,145 0 0,1 350,150" />
+        </defs>
+        
+        <!-- Add text along the semicircular path -->
+        <text fill="black" font-family="Arial" text-anchor="middle">
+          <textPath class="prompt" href="#semicirclePath" startOffset="50%">
+          *Set prompt*
+          </textPath>
+        </text>
+      </svg>
+      
+    
       
     </div>
     

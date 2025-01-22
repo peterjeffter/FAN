@@ -53,10 +53,8 @@ h1{
   right: 2%;
 }
 .prompt{
- position: absolute;
- bottom:26%;
+ 
   color: black;
-  text-decoration: underline;
   font-size: 40px;
 }
 
@@ -125,3 +123,12 @@ justify-content: center;
   align-self: center;
  
 }
+svg {
+  display: block;
+  margin: 0 auto;
+}
+
+.prompt {
+  fill: #3498db;
+}
+
