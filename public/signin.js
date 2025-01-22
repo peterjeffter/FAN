@@ -15,7 +15,7 @@ const addteacherform = async (event)=>{
     ) {
       document.querySelector('.add-teacher-error').innerHTML = 'Must enter details'
     } else {
-      const { data } = await axios.post('http://localhost:5000/speak/register', teacher );
+      const { data } = await axios.post('http://localhost:8000/speak/register', teacher );
       localStorage.setItem('token', data.token)
       localStorage.setItem('name', teacher.name)
       console.log(data.token)
@@ -43,7 +43,7 @@ teacherform.addEventListener('keypress', (event) => {
         password:document.getElementById('password').value,
       }
       try {   
-        const { data } = await axios.post('http://localhost:5000/speak/register', teacher );
+        const { data } = await axios.post('http://localhost:8000/speak/register', teacher );
         localStorage.setItem('token', data.token)
         localStorage.setItem('name', teacher.name)
         console.log(data.token)

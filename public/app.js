@@ -1,70 +1,80 @@
 document.addEventListener("DOMContentLoaded", () => {
   // Open and close the menu
-  document.getElementById('openbtnn').addEventListener('click', function () {
-    document.getElementById('addlearnermenu').classList.toggle('openn');
-  });
+  const addLearnerMenu = document.getElementById('addlearnermenu');
+  const openBtn = document.getElementById('openbtnn');
 
-  document.addEventListener('click', function (event) {
-    const addLearnerMenu = document.getElementById('addlearnermenu');
-    const openBtn = document.getElementById('openbtnn');
-    
-    if (
-      !addLearnerMenu.contains(event.target) &&
-      !openBtn.contains(event.target)
-    ) {
-      addLearnerMenu.classList.remove('openn');
+  if (openBtn && addLearnerMenu) {
+    openBtn.addEventListener('click', () => {
+      addLearnerMenu.classList.toggle('openn');
+    });
+
+    document.addEventListener('click', (event) => {
+      if (!addLearnerMenu.contains(event.target) && !openBtn.contains(event.target)) {
+        addLearnerMenu.classList.remove('openn');
+      }
+    });
+  } else {
+    console.error('Menu elements not found in the DOM.');
+  }
+
+  // Parent container for student profiles
+  const studentTabHTML = document.querySelector('.studentstab');
+
+  if (!studentTabHTML) {
+    console.error('Student profiles container not found.');
+    return;
+  }
+
+  // Handle clicks within the student profiles container
+  studentTabHTML.addEventListener('click', (event) => {
+    // Expand note section
+    if (event.target.closest('.expand-note')) {
+      const notesDiv = event.target.closest('.notes-div');
+      const toggleIcon = event.target;
+
+      if (notesDiv && toggleIcon) {
+        notesDiv.classList.toggle('expanded');
+        toggleIcon.classList.toggle('fa-up-right-and-down-left-from-center');
+        toggleIcon.classList.toggle('fa-down-left-and-up-right-to-center');
+      } else {
+        console.error('Notes section or toggle icon not found.');
+      }
+    }
+
+    // Add a new note
+    if (event.target.closest('.new-note-button')) {
+      const noteInput = event.target.closest('.note-input-sec')?.querySelector('.note-input');
+      const notesContainer = event.target.closest('.notes-div')?.querySelector('.notes-container');
+      const noteText = noteInput?.value.trim();
+
+      if (noteInput && notesContainer) {
+        if (noteText) {
+          // Create a new note bubble
+          const noteBubble = document.createElement('div');
+          noteBubble.className = 'note-bubble';
+          noteBubble.textContent = noteText;
+
+          // Add the bubble to the container
+          notesContainer.appendChild(noteBubble);
+
+          // Clear the input field
+          noteInput.value = '';
+        } else {
+          alert('Please enter a note before adding!');
+        }
+      } else {
+        console.error('Note input or container not found.');
+      }
     }
   });
 
-  // Display note popup
-  const openNotesButton = document.getElementById("openNotes");
-  const notesPopup = document.querySelector(".notes-div");
-
-  openNotesButton.addEventListener("click", () => {
-    notesPopup.classList.add("action");
-  });
-
-  // Close popup when clicking outside the content
-  document.addEventListener("click", (event) => {
-    if (!notesPopup.contains(event.target) && !openNotesButton.contains(event.target)) {
-      notesPopup.classList.remove("action");
-    }
-  });
-
-  // Expand note
-  document.querySelector('.expand-note').addEventListener('click', function () {
-    const notesDiv = document.querySelector('.notes-div');
-    const toggleIcon = document.querySelector('.expand-note');
-
-    // Toggle the expanded class
-    notesDiv.classList.toggle('expanded');
-
-    // Change the icon based on the expanded state
-    toggleIcon.classList.toggle('fa-up-right-and-down-left-from-center');
-    toggleIcon.classList.toggle('fa-down-left-and-up-right-to-center');
-  });
-
-  // Add a new note
-  const noteInput = document.querySelector(".note-input");
-  const newNoteButton = document.querySelector(".new-note-button");
-  const notesContainer = document.querySelector(".notes-container");
-
-  newNoteButton.addEventListener("click", () => {
-    const noteText = noteInput.value.trim();
-
-    if (noteText) {
-      // Create a new note bubble
-      const noteBubble = document.createElement("div");
-      noteBubble.className = "note-bubble";
-      noteBubble.textContent = noteText;
-
-      // Add the bubble to the container
-      notesContainer.appendChild(noteBubble);
-
-      // Clear the input field
-      noteInput.value = "";
-    } else {
-      alert("Please enter a note before adding!");
-    }
+  // Close notes popup when clicking outside
+  document.addEventListener('click', (event) => {
+    const openPopups = document.querySelectorAll('.notes-div.action');
+    openPopups.forEach((popup) => {
+      if (!popup.contains(event.target) && !studentTabHTML.contains(event.target)) {
+        popup.classList.remove('action');
+      }
+    });
   });
 });
