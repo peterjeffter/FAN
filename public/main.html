@@ -10,6 +10,10 @@
   <link rel="stylesheet" href="main.css">
   </head>
   <body>
+    <audio id="background-music" autoplay>
+      <source src="audio\10 Minute Timer With Happy Music _ Classroom - Rainbow - Alarm _.mp3" type="audio/mp3">
+      Your browser does not support the audio element.
+    </audio>
   <div class="curved-background"></div>
   <header class="header">
     
@@ -27,8 +31,6 @@
             <input class="input" id="name" placeholder="Enter learner's name" type="text">
             
             <input class="input" id="age" placeholder="Enter learner's age" type="text">
-
-            <input class="input" id="class" placeholder="Enter learner's class" type="text">
 
             <select class="input" id="language" placeholder= 'List of Languages' type="text">
               <option value="1">ENGLISH</option>
@@ -53,11 +55,15 @@
   
 
 
-  <div class="search-container">  
-    <input type="text" placeholder="search learners..." class="search-input">    
-    <i class="fas fa-search search-icon"></i>
-    <button class="newlearner" id="openbtnn"><i class="fas fa-plus "></i></button>
-  </div>
+        <div class="search-container">
+          <input type="text" placeholder="Search learners..." class="search-input" id="search-input">
+          <i class="fas fa-search search-icon" id="search-icon"></i>
+          <button class="newlearner" id="openbtnn">
+            <i class="fas fa-plus"></i>
+          </button>
+        </div>
+        
+        
 
   <div class="studentstab">
     

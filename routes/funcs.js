@@ -15,60 +15,32 @@ return res.send(instructor)
 
 
 router.get('/', async (req, res) => {
-  const {name, sort, fields, numericFilters}=req.query;
-  const queryObject ={}
-  if (name){
-    queryObject.name = {$regex:name, $options:'i'}
-  } 
-  
-  if(numericFilters){
-    const operatorMap={
-        '>':'$gt',
-        '<':'$lt',
-        '>=':'$gte',
-        '<=':'$lte',
-        '=':'$eq',
-    }
-    const regEx = /\b(<|>|>=|=|<|<=)\b/g
-    let filters = numericFilters.replace(
-      regEx,
-      (match)=>`-${operatorMap[match]}-`
-    )
-    const options = ['grade','age'];
-    filters = filters.split(',').forEach((item) => {
-      const [field, operator, value] = item.split('-')    
-    if (options.includes(field)){
-        queryObject[field] = {[operator]:Number(value)}
-      };
-    });
-  }
-  let result = student.find({teacher: req.user.userId});
-  if (sort){
-    const sortlist = sort.split(',').join(' ')
-    result = result.sort(sortlist)
-  }else{
-    result=result.sort('createdat')
+  const { name, page = 1, limit = 200 } = req.query;
+  const queryObject = { teacher: req.user.userId }; // Ensure students are filtered by the teacher's ID
+
+  // Search by name (case-insensitive)
+  if (name) {
+    queryObject.name = { $regex: name, $options: 'i' };
   }
 
-  if (fields){
-    const fieldlist = fields.split(',').join(' ')
-    result = result.select(fieldlist)
+  try {
+    // Find students based on the query object
+    let result = student.find(queryObject);
 
+    // Pagination
+    const skip = (Number(page) - 1) * Number(limit);
+    result = result.skip(skip).limit(Number(limit));
+
+    const learners = await result;
+
+    // Respond with the learners array
+    return res.status(200).json(learners);
+  } catch (error) {
+    console.error('Error fetching students:', error.message);
+    return res.status(500).json({ message: 'Server error', error: error.message });
   }
-  const page = Number(req.query.page)|| 1
-  const limit = Number(req.query.limit)|| 200
-  const skip = (page-1) *limit
-  console.log(queryObject)
-  result = result.skip(skip).limit(limit)
-  
- const learner = await result
- 
-  if (!learner) {    
-    throw new (NotFoundError('student does not exist'));
-  }
-  
-  return res.json(learner);
 });
+
 
 
 
@@ -82,6 +54,72 @@ router.post('/addlearner', async (req, res)=>{
   }  
   return res.status(StatusCodes.CREATED).json(learner);
 })
+
+router.post('/notes/:studentID', async (req, res) => {
+  try {
+    const teacherId = req.user.userId; // Extracted from JWT middleware
+    const {  note } = req.body;
+    const {studentID}= req.params
+
+    // Validate input
+    if (!studentID || !note) {
+      return res.status(StatusCodes.BAD_REQUEST).json({ message: 'Student ID and note content are required.' });
+    }
+
+    // Check if the student exists and belongs to the teacher
+    const learner = await student.findOne({  teacher: teacherId });
+    if (!student) {
+      return res.status(StatusCodes.FORBIDDEN).json({ message: 'You do not have access to this student or the student does not exist.' });
+    }
+
+    // Add the note to the student's notes array
+    const newNote = { note, teacher: teacherId };
+    learner.notes.push(newNote); // Assuming `notes` is an array in the Student model
+
+    // Save the updated student document
+    await learner.save();
+
+    // Respond with the created note
+    return res.status(StatusCodes.CREATED).json(newNote);
+  } catch (error) {
+    console.error('Error adding note:', error);
+    return res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({ message: 'An error occurred while adding the note.' });
+  }
+});
+
+
+
+router.get('/notes/:studentID', async (req, res) => {
+  try {
+    const teacherId = req.user.userId; // Extracted from JWT middleware
+    const { studentID } = req.params;
+
+    // Validate input
+    if (!studentID) {
+      return res.status(StatusCodes.BAD_REQUEST).json({ message: 'Student ID is required.' });
+    }
+
+    // Check if the student exists and belongs to the teacher
+    const learner = await student.findOne({ _id: studentID, teacher: teacherId });
+
+    if (!learner) {
+      return res.status(StatusCodes.FORBIDDEN).json({
+        message: 'You do not have access to this student or the student does not exist.',
+      });
+    }
+
+    // Retrieve notes
+    const oldNotes = learner.notes; // Assuming `notes` is an array in the `Student` model
+
+    // Respond with the notes
+    return res.status(StatusCodes.OK).json(oldNotes);
+  } catch (error) {
+    console.error('Error getting notes:', error);
+    return res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({
+      message: 'An error occurred while retrieving notes.',
+    });
+  }
+});
 
 
 router.patch(`/:studentID`,  asyncWrapper(async (req, res, next)=>{

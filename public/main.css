@@ -323,15 +323,13 @@ a:hover {
   background-color: rgb(228, 224, 224);
   display: none;
   transition: height 0.3s ease, opacity 0.3s ease;
-  height: 70px; /* Default height */
+  height: 300px; /* Default height */
   overflow: hidden;
   z-index: 1000;
   padding: 5px;
 }
 
-.notes-div.expanded {
-  height: 300px; /* Expanded height */
-}
+
 
 .note-name-sec {
   display: flex;
@@ -348,7 +346,7 @@ a:hover {
 .notes-container {
   margin-top: 10px;
   overflow-y: auto;
-  max-height: 200px; /* Adjust to fit expanded height */
+  max-height: 400px; /* Adjust to fit expanded height */
 }
 
 .note-bubble {

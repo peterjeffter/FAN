@@ -1,53 +1,55 @@
-const mongoose = require('mongoose')
-const { type } = require('os')
+const mongoose = require('mongoose');
 
 const learnerSchema = new mongoose.Schema({
   name: {
     type: String,
-    required: [true, 'must provide name'],
+    required: [true, 'Must provide a name'],
     trim: true,
-    maxlength: [50, 'name can not be more than 50 characters'],
+    maxlength: [50, 'Name cannot exceed 50 characters'],
   },
   grade: {
     type: Number,
-    required: [true, 'must provide class'],
+    required: [true, 'Must provide a class'],
     default: false,
   },
-  age:{
+  age: {
     type: Number,
-    required: [true, 'must provide age'],
+    required: [true, 'Must provide an age'],
     trim: true,
-    maxlength: [3, 'age can not be more than 3 characters'],
+    maxlength: [3, 'Age cannot exceed 3 digits'],
   },
-  language:{
+  language: {
     type: String,
-    required: [true, 'must provide language'],
+    required: [true, 'Must provide a language'],
     trim: true,
   },
-  parentname:{
+  parentname: {
     type: String,
-    required: [true, 'must provide name'],
+    required: [true, 'Must provide name'],
     trim: true,
-    maxlength: [50, 'name can not be more than 50 characters'],
+    maxlength: [50, 'Name cannot exceed 50 characters'],
   },
-  email:{
+  email: {
     type: String,
-    required: [true, 'must provide information'],
+    required: [true, 'Must provide email information'],
     trim: true,
   },
-  createdat:{
+  createdAt: {
     type: Date,
-    default: Date.now()
+    default: Date.now,
   },
   teacher: {
     type: mongoose.Types.ObjectId,
     ref: 'User',
-    required: [true, 'error']
+    required: [true, 'Teacher ID is required'],
   },
-  note:{
-    type: String,
-    required: [false],
-    trim: true,
-  },
-})
-module.exports= mongoose.model('students', learnerSchema)
+  notes: [
+    {
+      note: { type: String, required: true, trim: true },
+      teacher: { type: mongoose.Types.ObjectId, ref: 'User', required: true },
+      createdAt: { type: Date, default: Date.now },
+    },
+  ],
+});
+
+module.exports = mongoose.model('students', learnerSchema);
