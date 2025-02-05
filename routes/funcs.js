@@ -58,8 +58,8 @@ router.post('/addlearner', async (req, res)=>{
 router.post('/notes/:studentID', async (req, res) => {
   try {
     const teacherId = req.user.userId; // Extracted from JWT middleware
-    const {  note } = req.body;
-    const {studentID}= req.params
+    const { note } = req.body;
+    const { studentID } = req.params;
 
     // Validate input
     if (!studentID || !note) {
@@ -67,13 +67,13 @@ router.post('/notes/:studentID', async (req, res) => {
     }
 
     // Check if the student exists and belongs to the teacher
-    const learner = await student.findOne({  teacher: teacherId });
-    if (!student) {
+    const learner = await student.findOne({ _id: studentID, teacher: teacherId });
+    if (!learner) {
       return res.status(StatusCodes.FORBIDDEN).json({ message: 'You do not have access to this student or the student does not exist.' });
     }
 
-    // Add the note to the student's notes array
-    const newNote = { note, teacher: teacherId };
+    // Add the note with the required teacher field
+    const newNote = { note, studentID, teacher: teacherId };
     learner.notes.push(newNote); // Assuming `notes` is an array in the Student model
 
     // Save the updated student document
@@ -86,6 +86,7 @@ router.post('/notes/:studentID', async (req, res) => {
     return res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({ message: 'An error occurred while adding the note.' });
   }
 });
+
 
 
 

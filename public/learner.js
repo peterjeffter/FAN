@@ -249,6 +249,7 @@ const postNote = async (studentID, noteText) => {
   } catch (error) {
     console.error('Error posting note:', error);
   }
+  
 };
 
 
@@ -315,6 +316,8 @@ document.addEventListener('click', (e) => {
           alert('Please enter a note before adding!');
           return;
         }
+        // Call postNote to send the note to the backend
+        postNote(studentID, noteText);
 
         // Create a new note bubble
         const noteBubble = document.createElement('div');
@@ -327,8 +330,8 @@ document.addEventListener('click', (e) => {
         // Clear the input field
         noteInput.value = '';
 
-        // Call postNote to send the note to the backend
-        postNote(studentID, noteText);
+        
+        
       });
     } else {
       // Toggle visibility instead of removing
