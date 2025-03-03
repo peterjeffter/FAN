@@ -6,7 +6,10 @@ const authentication = require('./middleware/authentication')
 const auth = require('./routes/authentication')
 const app = express()
 app.use(cors({
-  origin: '*',
+  origin: "https://fan-k9799yq4r-0ngutor0s-projects.vercel.app", // Allow only your frontend
+  methods: "GET,POST,PUT,DELETE,OPTIONS",
+  allowedHeaders: "Content-Type,Authorization",
+  credentials: true
 }));
 
 const funcs = require('./routes/funcs')
