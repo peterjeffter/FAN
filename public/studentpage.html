@@ -12,25 +12,30 @@
   
   
     <header>
-      <i class="fa-solid fa-arrow-left fa-sm" id="backButton"></i>
-      <h2 id="scndname"> </h2>
+      <i class="fa-solid fa-angle-left backButton fa-2x" style="color: #95a0b1;" id="backButton" ></i>
+      
+      <h2 id="scndname" class="scndname"> </h2>
 
       <div class="rightside">
 
-        <select name="language" class="category" id="category-dropdown">
-          <option value="CATEGORY">CATEGORY</option>
-          <option value="mom">mom</option>
-          <option value="dad">dad</option>
-          <option value="eat">eat</option>
-          <option value="friends">friends</option>
-          <option value="cat">cat</option>
+        <select title="CATEGORY" name="language" class="category" id="category-dropdown">
+          <option value="Random">Random</option>
+          <option value="Pets">Pets</option>
+          <option value="WildAnimals">Wild Animals</option>
+          <option value="FarmAnimals">Farm Animals</option>
+          <option value="SeaAnimals">Sea Animals</option>
+          <option value="Birds">Birds</option>
+          <option value="Insects">Insects</option>
+          <option value="SpaceandSkies">Space and Skies</option>
+          <option value="Vehicles">Vehicles</option>
+          <option value="Flora">Flora</option>
         </select>
          
 
 
         <div class="setprompt-div">
-           <input class="setprompt" placeholder="Set Prompt">
-           <img class="flag" src="images/nigeria.png" alt="naija">
+           <input class="setprompt" placeholder="Set prompt...">
+           <img class="flag" src="images/dutch flag.webp" alt="naija">
         </div>
          
       </div>
@@ -38,34 +43,20 @@
     </header>
     <div class="giftab">
 
-      <img id="photo" class="gif" src="photos/friends/PHOTO-2024-11-18-00-47-51.jpg" alt="">
+      <img id="photo" class="gif" src="photos/wild/IMG-20250213-WA0095.jpg" alt="">
       
-      <svg width="350" height="200" viewBox="0 0 400 200">
-        <!-- Define a semicircle path -->
-        <defs>
-          <path id="semicirclePath" d="M 55,150 A 150,145 0 0,1 350,150" />
-        </defs>
-        
-        <!-- Add text along the semicircular path -->
-        <text fill="black" font-family="Arial" text-anchor="middle">
-          <textPath class="prompt" href="#semicirclePath" startOffset="50%">
-          *Set prompt*
-          </textPath>
-        </text>
-      </svg>
+     
       
     
       
     </div>
     
   <div class="speaker-div">
-    <i class="fa-solid fa-volume-high fa-2xl speak-up"></i>
+    <img src="images/microphone2.png" class="phone" width="300" height="300" alt="">
   </div>
   
   <div class="curved-background"></div>
-  <div class="advert">
-    place advert here
-  </div>
+  
   <script src="studentapage.js"></script>
 </body>
 </html>

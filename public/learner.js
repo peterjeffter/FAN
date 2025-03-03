@@ -1,6 +1,5 @@
 document.addEventListener('DOMContentLoaded', () => {
-  const audio = document.getElementById('background-music');
-  audio.volume = 0.5; // Set volume level (optional)
+  
   const username = document.querySelector('.name');
   const name = localStorage.getItem('name');
 

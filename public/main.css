@@ -12,10 +12,13 @@ body, html{
 }
 
 .logo{
-  font-size: 17px;
-  font-weight:bold;
-  font-family:'Raleway','Thin 100';
-  color: rgb(29, 26, 31);
+  font-family: 'Luckiest Guy', monospace;
+  font-size: 20px;
+  color: #1b053d; /* Bright orange color */
+  text-shadow: 4px ; /* 3D cartoon effect */
+  letter-spacing: 0.5px;
+  transform: rotate(-3deg); /* Slight tilt for a fun effect */
+  padding-left: 8px;
 }
 header{
   display: flex;
@@ -36,8 +39,8 @@ header{
 }
 
 
-input{
-  border-radius: 2px;
+.input{
+  border-radius: 15px;
   height: 33px;
   border: solid 1px #883f3f ; ;  
   
@@ -48,16 +51,26 @@ input{
   font-family:system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif
 }
 #language{
-  border-radius: 2px;
+  border-radius: 15px;
   height: 33px;
-  border: solid 1px #883f3f ; ;  
+  border: solid 1px #883f3f ;
+  padding-left: 3px ;  
   
   width: 250px;
   background-color: whitesmoke;
   
+  appearance: none; /* Removes default arrow */
+  -webkit-appearance: none; /* For Safari */
+  -moz-appearance: none; /* For Firefox */
+  background-image: url('/public/images/down-arrow.png'); /* Custom arrow icon */
+  background-repeat: no-repeat;
+  background-position: right 10px center;
+  background-size: 16px;
+
   font-size: 12px;
   font-family:system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif
 }
+
 .curved-background {
   height: 400px;
   background: linear-gradient(720deg, #6a11cb, #fc2525);
@@ -71,6 +84,8 @@ input{
 
 .profilepic{
   width: 30px;
+  color: #266396;
+  margin-right: 6px;
 }
 .info{
   text-align: justify;
@@ -172,7 +187,11 @@ h1{
   text-align: center;
   font-family:'Inconsolata', monospace;
   font-style:normal;
-  font-size: 13px;
+  font-size: 15px;
+  position: relative;
+  right: 2px;
+ 
+  
 
 }
 .prof-pic{
@@ -218,10 +237,10 @@ a:hover {
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: space-between;
+  row-gap: 15px;
   background-color: whitesmoke;
   width: 253px;
-  height: 350px;
+  height: 300px;
   position: absolute;
   top: 100%; 
   left: 9%;
@@ -229,10 +248,12 @@ a:hover {
   padding: 20px;
   visibility: hidden;
   z-index: 1000;
+  border-radius: 6%;
+  box-shadow: 0 0 2px rgba(0, 0, 0, 0.5);
 }
 .formtab.openn {
   visibility: visible; 
-  top: 18%; 
+  top: 11%; 
 }
 .formtab.closee {
   top: 100%;
@@ -241,12 +262,13 @@ a:hover {
 .addlearner{
   width: 250px;
   height: 35px;
-  
+  border-radius: 15px;
   color: white;
   background-color: rgb(86, 72, 126);
   border: none;
   cursor: pointer; 
 }
+
 .task-links {
   display: flex;
   align-items: center;
@@ -254,11 +276,10 @@ a:hover {
 }
 
 
-
 .search-container {
   position: relative;
   width: 100%;
-  top: 10%;
+  top: 11%;
   display: flex;
   justify-content: center;
 }
@@ -269,7 +290,7 @@ a:hover {
   padding-left: 3rem; /* Add padding to make room for the icon */
   font-size: 16px;
   border: none;
-  border-radius: 4px;
+  height: 33px;
   box-sizing: border-box;
   background-color: white;
   border-radius: 25px;
@@ -326,7 +347,8 @@ a:hover {
   height: 300px; /* Default height */
   overflow: hidden;
   z-index: 1000;
-  padding: 5px;
+  padding: 10px;
+  border-radius: 25px;
 }
 
 
@@ -334,13 +356,36 @@ a:hover {
 .note-name-sec {
   display: flex;
   justify-content: space-between;
+  margin-right: 25px;
+  color: black;
+  margin-left: 5px;
 }
 
 .note-input-sec {
   display: flex;
   position: absolute;
-  bottom: 5px;
+  bottom: 15px;
   width: 100%;
+}
+.note-input{
+  width: 90%;
+  border: none;
+  height: 30px;
+  border-radius: 15px;
+  box-shadow: 0 0 3px rgba(0, 0, 0, 0.247);
+  padding-left: 5px;
+  
+}
+.new-note-button{
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  right: 7%;
+  background-color: green;
+  border: none;
+  color: white;
+  width: 30px;
+  border-radius: 15px;
 }
 
 .notes-container {
@@ -353,5 +398,5 @@ a:hover {
   background-color: #f0f0f0;
   padding: 5px 10px;
   margin: 5px 0;
-  border-radius: 5px;
+  border-radius: 15px;
 }

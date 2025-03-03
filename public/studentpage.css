@@ -1,3 +1,7 @@
+@import url('https://fonts.googleapis.com/css?family=Montserrat:400|Inconsolata:400');
+@import url('https://fonts.googleapis.com/css2?family=Luckiest+Guy&display=swap');
+
+
 body{
   background-color: white;
   display: flex;
@@ -5,6 +9,7 @@ body{
   justify-content: center;
   align-items: center;
   overflow: hidden;
+  font-family: Arial, sans-serif;
 }
 .fa-solid{
  position: absolute;
@@ -29,17 +34,34 @@ h1{
  width: 20px;
 }
 .category{
-  border: solid 1px black;
-  width: 105px;
-  height: 18px;
+  border-color: #6f7a99;
+  width: 132px;
+  height: 25px;
   border-radius: 30px;
+  background-color: #6f7a99;
+  color: bisque;
+  font-family:  'Inconsolata';
+  position: relative;
+  left: 15%;
 }
 .setprompt{
-  border: solid 1px black;
-  width:100px ;
-  height: 18px;
+  border: solid 1px #6f7a99;
+  width:125px ;
+  height: 25px;
   border-radius: 30px;
+  background-color: #6f7a99;
+  color: rgb(252, 252, 252);
+  padding-left: 5px;
+  position: relative;
+  left: 15%;
+
 }
+input::placeholder {
+  color: rgb(255, 255, 255); /* Change to your desired color */
+  font-family:  'Inconsolata';
+  opacity: 1; /* Ensure full visibility in some browsers */
+}
+
 .setprompt-div{
   position: relative;
   margin-top: 5px;
@@ -48,9 +70,9 @@ h1{
   align-items: center;
 }
 .flag{
-  width: 20px;
+  width: 17px;
   position: absolute;
-  right: 2%;
+  left: 98%;
 }
 .prompt{
  
@@ -67,6 +89,7 @@ h1{
 }
 .gif{
   width:100%;
+  border-radius: 25PX;
 }
 h2{
   width: 50px;
@@ -85,6 +108,8 @@ h2{
   display: flex;
   justify-content: center;
   align-items: center;
+  border-top-right-radius: 20px;
+  border-top-left-radius:20px ;
 }
 
 
@@ -108,13 +133,17 @@ justify-content: center;
   position: relative;
   width: 100px;
   height: 100px;
-  background-color: grey; 
+   
   position: fixed;
   top: 70%;
   display: flex;
   justify-content: center;
   border-radius: 50%;
 
+}
+.phone{
+  position: relative;
+  bottom: 75%;
 }
 .speak-up{
   position: absolute;
@@ -129,6 +158,24 @@ svg {
 }
 
 .prompt {
-  fill: #3498db;
+  fill: #5bdb34;
+  font-family:  'Inconsolata';
+  
 }
+.scndname{
+  
+  
+  font-family: 'Luckiest Guy', cursive;
+  font-size: 40px;
+  color: #714eaa; /* Bright orange color */
+  text-shadow: 4px 4px 0 #000, 8px 8px ; /* 3D cartoon effect */
+  letter-spacing: 2px;
+  transform: rotate(-3deg); /* Slight tilt for a fun effect */
+  padding-left: 8px;
 
+}
+.backButton{
+  position: absolute;
+  top: 30px;
+  
+}
