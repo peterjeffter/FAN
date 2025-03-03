@@ -26,7 +26,7 @@
   
       try {
         studentTabHTML.innerHTML = '<h5>Loading students...</h5>';
-        const { data } = await axios.get(`http://localhost:8000/speak/?name=${encodeURIComponent(searchQuery)}`, {
+        const { data } = await axios.get(`https://fan-cxhedyjd9-0ngutor0s-projects.vercel.app/speak/?name=${encodeURIComponent(searchQuery)}`, {
           headers: {
             Authorization: `Bearer ${token}`,
           },
@@ -110,7 +110,7 @@
   
     try {
       const { data } = await axios.get(
-        `http://localhost:8000/speak/notes/${studentID}`,
+        `https://fan-cxhedyjd9-0ngutor0s-projects.vercel.app/speak/notes/${studentID}`,
         {
           headers: {
             Authorization: `Bearer ${token}`,
