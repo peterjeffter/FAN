@@ -5,8 +5,20 @@ const cors = require('cors');
 const authentication = require('./middleware/authentication')
 const auth = require('./routes/authentication')
 const app = express()
+const allowedOrigins = [
+  "https://fan-k9799yq4r-0ngutor0s-projects.vercel.app", 
+  "https://fan-a240anbb6-0ngutor0s-projects.vercel.app",
+  "https://fan-*.vercel.app" // Allow all Vercel frontend subdomains
+];
+
 app.use(cors({
-  origin: "https://fan-k9799yq4r-0ngutor0s-projects.vercel.app", // Allow only your frontend
+  origin: function (origin, callback) {
+    if (!origin || allowedOrigins.some(o => origin.startsWith("https://fan-") && origin.endsWith(".vercel.app"))) {
+      callback(null, true);
+    } else {
+      callback(new Error("Not allowed by CORS"));
+    }
+  },
   methods: "GET,POST,PUT,DELETE,OPTIONS",
   allowedHeaders: "Content-Type,Authorization",
   credentials: true
