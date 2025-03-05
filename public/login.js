@@ -1,33 +1,46 @@
-import { parseJwt } from "../utility/parsejwt.js"
-const loginform = document.getElementById('loginform')
-
+const loginbtn = document.querySelector('.loginbtn');
+const teacherform = document.getElementById('addteachermenu');
 const BASE_URL = "https://fan-msxtf2qxc-0ngutor0s-projects.vercel.app/speak";
 
-const login = async (event)=>{
+// ✅ Corrected `addteacherform` function
+const addteacherform = async (event) => {
   event.preventDefault();
+
   const teacher = {
-    email: document.getElementById('loginemail').value,   
-    password:document.getElementById('loginpassword').value,
-  }
-  try { 
-    
-    if (teacher.email === '' || teacher.password === '') {
-      document.querySelector('.login-error').innerHTML = 'Must enter details'
-    } else {
-      const { data } = await axios.post(`${BASE_URL}/login`, teacher );
-    localStorage.setItem('token', data.token)    
-    
-    const decodedToken = parseJwt(data.token);
-    localStorage.setItem('name', decodedToken.name)
-    window.location.href="main.html"
+    name: document.getElementById('teachername').value.trim(),
+    email: document.getElementById('email').value.trim(),
+    password: document.getElementById('password').value.trim(),
+  };
+
+  try {
+    if (!teacher.name || !teacher.email || !teacher.password) {
+      document.querySelector('.add-teacher-error').innerHTML = 'Must enter details';
+      return;
     }
+
+    const { data } = await axios.post(`${BASE_URL}/register`, teacher);
+    localStorage.setItem('token', data.token);
+    localStorage.setItem('name', teacher.name);
+    console.log(data.token);
+    window.location.href = "main.html";
   } catch (error) {
-    localStorage.removeItem('token')
+    localStorage.removeItem('token');
     console.log(error);
-    
+    document.querySelector('.add-teacher-error').innerHTML = 'Registration failed';
   }
-}
+};
 
-loginform.addEventListener('submit', login)
+// ✅ Attach event listener correctly
+teacherform.addEventListener('submit', addteacherform);
 
+// ✅ Corrected `keypress` event listener
+teacherform.addEventListener('keypress', async (event) => {
+  if (event.key === 'Enter') {
+    event.preventDefault();
+    await addteacherform(event);
+  }
+});
 
+loginbtn.addEventListener('click', () => {
+  window.location.href = 'login.html';
+});
