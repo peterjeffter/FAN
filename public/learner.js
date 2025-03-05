@@ -18,6 +18,7 @@ const searchIcon = document.querySelector('.search-icon');
 const form = document.getElementById('addlearnermenu');
 const studentTabHTML = document.querySelector('.studentstab');
 
+const BASE_URL = "${BASE_URL}/speak";
 
 // Function to fetch and display students
 
@@ -40,7 +41,7 @@ const showstudents = async (searchQuery = '') => {
 
   try {
     studentTabHTML.innerHTML = '<h5>Loading students...</h5>';
-    const { data } = await axios.get(`https://fan-cxhedyjd9-0ngutor0s-projects.vercel.app/speak/?name=${encodeURIComponent(searchQuery)}`, {
+    const { data } = await axios.get(`/speak/?name=${encodeURIComponent(searchQuery)}`, {
       headers: {
         Authorization: `Bearer ${token}`,
       },
@@ -114,7 +115,7 @@ const addStudentForm = async (event) => {
       document.querySelector('.add-learner-error').innerHTML = '*Must enter details*'
     } else {
       console.log(student);
-    await axios.post('https://fan-cxhedyjd9-0ngutor0s-projects.vercel.app/speak/addlearner', student, {
+    await axios.post('${BASE_URL}/speak/addlearner', student, {
       headers: {
         Authorization: `Bearer ${token}`,
       },
@@ -144,7 +145,7 @@ const expelStudent = async (e) => {
     const id = deleteBtn.dataset.id;
     if (id) {
       try {
-        await axios.delete(`https://fan-cxhedyjd9-0ngutor0s-projects.vercel.app/speak/${id}`, {
+        await axios.delete(`${BASE_URL}/speak/${id}`, {
           headers: {
             Authorization: `Bearer ${token}`,
           },
@@ -203,7 +204,7 @@ const showNotes = async (studentID) => {
 
   try {
     const { data } = await axios.get(
-      `https://fan-cxhedyjd9-0ngutor0s-projects.vercel.app/speak/notes/${studentID}`,
+      `${BASE_URL}/speak/notes/${studentID}`,
       {
         headers: {
           Authorization: `Bearer ${token}`,
@@ -238,7 +239,7 @@ const postNote = async (studentID, noteText) => {
 
   try {
     const { data } = await axios.post(
-      `https://fan-cxhedyjd9-0ngutor0s-projects.vercel.app/speak/notes/${studentID}`, 
+      `${BASE_URL}/speak/notes/${studentID}`, 
       { note: noteText }, 
       {
         headers: { Authorization: `Bearer ${token}` },

@@ -11,7 +11,7 @@ const login = async (event)=>{
     if (teacher.email === '' || teacher.password === '') {
       document.querySelector('.login-error').innerHTML = 'Must enter details'
     } else {
-      const { data } = await axios.post('https://fan-cxhedyjd9-0ngutor0s-projects.vercel.app/speak/login', teacher );
+      const { data } = await axios.post('${BASE_URL}/speak/login', teacher );
     localStorage.setItem('token', data.token)    
     
     const decodedToken = parseJwt(data.token);
