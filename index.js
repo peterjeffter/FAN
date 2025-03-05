@@ -6,9 +6,8 @@ const authentication = require('./middleware/authentication')
 const auth = require('./routes/authentication')
 const app = express()
 const allowedOrigins = [
-  "https://fan-k9799yq4r-0ngutor0s-projects.vercel.app", 
+  
   "https://fan-msxtf2qxc-0ngutor0s-projects.vercel.app",
-  "https://fan-kea8gglq9-0ngutor0s-projects.vercel.app ",
   "https://fan-*.vercel.app" // Allow all Vercel frontend subdomains
 ];
 
