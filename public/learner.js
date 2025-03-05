@@ -18,7 +18,7 @@ const searchIcon = document.querySelector('.search-icon');
 const form = document.getElementById('addlearnermenu');
 const studentTabHTML = document.querySelector('.studentstab');
 
-const BASE_URL = "https://fan-msxtf2qxc-0ngutor0s-projects.vercel.app";
+const BASE_URL = "https://fan-msxtf2qxc-0ngutor0s-projects.vercel.app/speak";
 
 // Function to fetch and display students
 
@@ -41,7 +41,7 @@ const showstudents = async (searchQuery = '') => {
 
   try {
     studentTabHTML.innerHTML = '<h5>Loading students...</h5>';
-    const { data } = await axios.get(`${BASE_URL}/speak/?name=${encodeURIComponent(searchQuery)}`, {
+    const { data } = await axios.get(`${BASE_URL}/?name=${encodeURIComponent(searchQuery)}`, {
       headers: {
         Authorization: `Bearer ${token}`,
       },
@@ -115,7 +115,7 @@ const addStudentForm = async (event) => {
       document.querySelector('.add-learner-error').innerHTML = '*Must enter details*'
     } else {
       console.log(student);
-    await axios.post(`${BASE_URL}/speak/addlearner`, student, {
+    await axios.post(`${BASE_URL}/addlearner`, student, {
       headers: {
         Authorization: `Bearer ${token}`,
       },
@@ -145,7 +145,7 @@ const expelStudent = async (e) => {
     const id = deleteBtn.dataset.id;
     if (id) {
       try {
-        await axios.delete(`${BASE_URL}/speak/${id}`, {
+        await axios.delete(`${BASE_URL}/${id}`, {
           headers: {
             Authorization: `Bearer ${token}`,
           },
@@ -204,7 +204,7 @@ const showNotes = async (studentID) => {
 
   try {
     const { data } = await axios.get(
-      `${BASE_URL}/speak/notes/${studentID}`,
+      `${BASE_URL}/notes/${studentID}`,
       {
         headers: {
           Authorization: `Bearer ${token}`,
@@ -239,7 +239,7 @@ const postNote = async (studentID, noteText) => {
 
   try {
     const { data } = await axios.post(
-      `${BASE_URL}/speak/notes/${studentID}`, 
+      `${BASE_URL}/notes/${studentID}`, 
       { note: noteText }, 
       {
         headers: { Authorization: `Bearer ${token}` },
