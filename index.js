@@ -8,6 +8,7 @@ const app = express()
 const allowedOrigins = [
   "https://fan-k9799yq4r-0ngutor0s-projects.vercel.app", 
   "https://fan-a240anbb6-0ngutor0s-projects.vercel.app",
+  "https://fan-kea8gglq9-0ngutor0s-projects.vercel.app ",
   "https://fan-*.vercel.app" // Allow all Vercel frontend subdomains
 ];
 
