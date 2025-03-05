@@ -1,52 +1,36 @@
-
-const express = require('express')
-require('dotenv').config()
+const express = require('express');
+require('dotenv').config();
 const cors = require('cors');
-const authentication = require('./middleware/authentication')
-const auth = require('./routes/authentication')
-const app = express()
-const allowedOrigins = [
-  
-  
-  "https://fan-m7uhi61sc-0ngutor0s-projects.vercel.app ",
-  "https://fan-*.vercel.app" // Allow all Vercel frontend subdomains
-];
+const authentication = require('./middleware/authentication');
+const auth = require('./routes/authentication');
+const funcs = require('./routes/funcs');
 
+const app = express();
+
+// ✅ Fix CORS: Allow frontend origin dynamically or allow all (*)
 app.use(cors({
-  origin: function (origin, callback) {
-    if (!origin || allowedOrigins.some(o => origin.startsWith("https://fan-") && origin.endsWith(".vercel.app"))) {
-      callback(null, true);
-    } else {
-      callback(new Error("Not allowed by CORS"));
-    }
-  },
+  origin: "*", // Change to your frontend URL if necessary
   methods: "GET,POST,PUT,DELETE,OPTIONS",
   allowedHeaders: "Content-Type,Authorization",
-  credentials: true
+  credentials: true,
 }));
 
-const funcs = require('./routes/funcs')
+app.use(express.urlencoded({ extended: false }));
+app.use(express.json());
+const connectDB = require('./db/connect');
 
-app.use(express.urlencoded({extended:false}))
-app.use(express.json())
-const connectDB = require('./db/connect')
-app.use('/speak/', auth)
-app.use('/speak/', authentication, funcs)
+app.use('/speak/', auth);
+app.use('/speak/', authentication, funcs);
 
+app.use(express.static('public'));
 
-app.use(express.static('public'))
-
-
-
-const start = async ()=>{
+const start = async () => {
   try {
-    await connectDB(process.env.MONGO_URI)
-    app.listen(8000, ()=>{console.log('PORT: 8000')})
+    await connectDB(process.env.MONGO_URI);
+    app.listen(8000, () => { console.log('PORT: 8000') });
   } catch (error) {
-    console.log(error)
+    console.log(error);
   }
-}
+};
 
-
-
-start()
+start();
