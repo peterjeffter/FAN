@@ -1,6 +1,9 @@
 const loginbtn = document.querySelector('.loginbtn')
 const teacherform = document.getElementById('addteachermenu')
 const signUp = document.getElementById('signupbtn')
+
+const BASE_URL = "https://fan-msxtf2qxc-0ngutor0s-projects.vercel.app/speak";
+
 const addteacherform = async (event)=>{
   event.preventDefault();
   const teacher = {
@@ -15,7 +18,7 @@ const addteacherform = async (event)=>{
     ) {
       document.querySelector('.add-teacher-error').innerHTML = 'Must enter details'
     } else {
-      const { data } = await axios.post('${BASE_URL}/speak/register', teacher );
+      const { data } = await axios.post(`${BASE_URL}/speak/register`, teacher );
       localStorage.setItem('token', data.token)
       localStorage.setItem('name', teacher.name)
       console.log(data.token)

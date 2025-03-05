@@ -1,5 +1,8 @@
 import { parseJwt } from "../utility/parsejwt.js"
 const loginform = document.getElementById('loginform')
+
+const BASE_URL = "https://fan-msxtf2qxc-0ngutor0s-projects.vercel.app/speak";
+
 const login = async (event)=>{
   event.preventDefault();
   const teacher = {
@@ -11,7 +14,7 @@ const login = async (event)=>{
     if (teacher.email === '' || teacher.password === '') {
       document.querySelector('.login-error').innerHTML = 'Must enter details'
     } else {
-      const { data } = await axios.post('${BASE_URL}/speak/login', teacher );
+      const { data } = await axios.post(`${BASE_URL}/speak/login`, teacher );
     localStorage.setItem('token', data.token)    
     
     const decodedToken = parseJwt(data.token);

@@ -18,7 +18,7 @@ const searchIcon = document.querySelector('.search-icon');
 const form = document.getElementById('addlearnermenu');
 const studentTabHTML = document.querySelector('.studentstab');
 
-const BASE_URL = "${BASE_URL}/speak";
+const BASE_URL = "https://fan-msxtf2qxc-0ngutor0s-projects.vercel.app/speak";
 
 // Function to fetch and display students
 
@@ -41,7 +41,7 @@ const showstudents = async (searchQuery = '') => {
 
   try {
     studentTabHTML.innerHTML = '<h5>Loading students...</h5>';
-    const { data } = await axios.get(`/speak/?name=${encodeURIComponent(searchQuery)}`, {
+    const { data } = await axios.get(`${BASE_URL}/speak/?name=${encodeURIComponent(searchQuery)}`, {
       headers: {
         Authorization: `Bearer ${token}`,
       },
@@ -115,7 +115,7 @@ const addStudentForm = async (event) => {
       document.querySelector('.add-learner-error').innerHTML = '*Must enter details*'
     } else {
       console.log(student);
-    await axios.post('${BASE_URL}/speak/addlearner', student, {
+    await axios.post(`${BASE_URL}/speak/addlearner`, student, {
       headers: {
         Authorization: `Bearer ${token}`,
       },
