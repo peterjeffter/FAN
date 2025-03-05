@@ -18,7 +18,7 @@ const searchIcon = document.querySelector('.search-icon');
 const form = document.getElementById('addlearnermenu');
 const studentTabHTML = document.querySelector('.studentstab');
 
-const BASE_URL = "https://fan-kea8gglq9-0ngutor0s-projects.vercel.appses/speak";
+const BASE_URL = "https://fan-m7uhi61sc-0ngutor0s-projects.vercel.app /speak";
 
 // Function to fetch and display students
 
