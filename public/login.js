@@ -1,7 +1,7 @@
 import { parseJwt } from "../utility/parsejwt.js"
 const loginform = document.getElementById('loginform')
 
-const BASE_URL = "https://fan-msxtf2qxc-0ngutor0s-projects.vercel.app/speak";
+const BASE_URL = "https://fan-msxtf2qxc-0ngutor0s-projects.vercel.app";
 
 const login = async (event)=>{
   event.preventDefault();
