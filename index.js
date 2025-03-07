@@ -1,36 +1,17 @@
-const express = require('express');
-require('dotenv').config();
-const cors = require('cors');
-const authentication = require('./middleware/authentication');
-const auth = require('./routes/authentication');
-const funcs = require('./routes/funcs');
+const express = require("express");
+const cors = require("cors");
 
 const app = express();
-
-// ✅ Fix CORS: Allow frontend origin dynamically or allow all (*)
-app.use(cors({
-  origin: " https://fan-f8x395s2v-0ngutor0s-projects.vercel.app", // Change to your frontend URL if necessary
-  methods: "GET,POST,PUT,DELETE,OPTIONS",
-  allowedHeaders: "Content-Type,Authorization",
-  credentials: true,
-}));
-
-app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
-const connectDB = require('./db/connect');
+app.use(cors({ origin: "https://fan-f8x395s2v-0ngutor0s-projects.vercel.app" }));
 
-app.use('/speak/', auth);
-app.use('/speak/', authentication, funcs);
+app.post("/api/login", (req, res) => {
+    const { username, password } = req.body;
+    if (username === "test" && password === "test") {
+        return res.json({ token: "your_jwt_token" });
+    }
+    res.status(401).json({ message: "Invalid credentials" });
+});
 
-app.use(express.static('public'));
-
-const start = async () => {
-  try {
-    await connectDB(process.env.MONGO_URI);
-    app.listen(8000, () => { console.log('PORT: 8000') });
-  } catch (error) {
-    console.log(error);
-  }
-};
-
-start();
+const port = process.env.PORT || 3000;
+app.listen(port, () => console.log(`Server running on port ${port}`));
