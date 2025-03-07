@@ -2,7 +2,7 @@ const loginbtn = document.querySelector('.loginbtn')
 const teacherform = document.getElementById('addteachermenu')
 const signUp = document.getElementById('signupbtn')
 
-const BASE_URL = "https://fan-m7uhi61sc-0ngutor0s-projects.vercel.app/speak";
+const BASE_URL = "https://fan-5eq4obcio-0ngutor0s-projects.vercel.app";
 
 const addteacherform = async (event)=>{
   event.preventDefault();
