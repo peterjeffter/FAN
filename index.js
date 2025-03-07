@@ -9,7 +9,7 @@ const app = express();
 
 // ✅ Fix CORS: Allow frontend origin dynamically or allow all (*)
 app.use(cors({
-  origin: " https://fan-5eq4obcio-0ngutor0s-projects.vercel.app", // Change to your frontend URL if necessary
+  origin: " https://fan-f8x395s2v-0ngutor0s-projects.vercel.app", // Change to your frontend URL if necessary
   methods: "GET,POST,PUT,DELETE,OPTIONS",
   allowedHeaders: "Content-Type,Authorization",
   credentials: true,
