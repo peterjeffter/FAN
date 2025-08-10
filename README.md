@@ -1,4 +1,4 @@
-CHAMCHAM is a full-stack speech learning application designed to help children enhance their speech and language skills through interactive flashcards and real-time vocal feedback. Tailored for educators, it provides a secure platform to manage learners, track progress with notes, and deliver personalized learning experiences. This project highlights my expertise in building secure, scalable APIs and user-focused educational tools, making it a strong addition to my portfolio for potential employers.
+FAN is a full-stack speech learning application designed to help children enhance their speech and language skills through interactive flashcards and real-time vocal feedback. Tailored for educators, it provides a secure platform to manage learners, track progress with notes, and deliver personalized learning experiences. This project highlights my expertise in building secure, scalable APIs and user-focused educational tools, making it a strong addition to my portfolio for potential employers.
 
 TABLE OF CONTENTS
 Project Overview
@@ -13,7 +13,7 @@ License
 
 
 PROJECT OVERVIEW
-ChamCham supports children's speech development by offering an engaging platform for teachers to manage learners and monitor progress. The backend, built with Node.js and Express, ensures secure authentication and efficient data management with MongoDB. The application features robust user authentication, learner management, and a notes system, with a frontend  for interactive flashcards and vocal feedback processing. This project demonstrates my ability to design production-ready APIs with a focus on security, scalability, and user experience.Key FeaturesSecure Authentication: Teachers can register and log in using JWT-based authentication with password hashing for security.
+FAN supports children's speech development by offering an engaging platform for teachers to manage learners and monitor progress. The backend, built with Node.js and Express, ensures secure authentication and efficient data management with MongoDB. The application features robust user authentication, learner management, and a notes system, with a frontend  for interactive flashcards and vocal feedback processing. This project demonstrates my ability to design production-ready APIs with a focus on security, scalability, and user experience.Key FeaturesSecure Authentication: Teachers can register and log in using JWT-based authentication with password hashing for security.
 Learner Management: Enables teachers to create, update, delete, and search for learners, with pagination for efficient data handling.
 Progress Tracking: Teachers can add and retrieve notes for individual learners to provide personalized feedback.
 Interactive Learning: Supports flashcards and vocal feedback for children .
