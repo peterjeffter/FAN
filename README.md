@@ -1,4 +1,4 @@
-FAN is a full-stack speech learning application designed to help children enhance their speech and language skills through interactive flashcards and real-time vocal feedback. Tailored for educators, it provides a secure platform to manage learners, track progress with notes, and deliver personalized learning experiences. This project highlights my expertise in building secure, scalable APIs and user-focused educational tools, making it a strong addition to my portfolio for potential employers.
+FAN is a full-stack speech learning application designed to help children enhance their speech and language skills through interactive flashcards and real-time vocal feedback. Tailored for educators, it provides a secure platform to manage learners, track progress with notes, and deliver personalized learning experiences. I (Ngutor Ugbor) contributed to this project by building all backend features so as to highlights my expertise in building secure, scalable APIs and user-focused educational tools, making it a strong addition to my portfolio for potential employers.
 
 TABLE OF CONTENTS
 Project Overview
