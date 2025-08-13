@@ -9,7 +9,7 @@ const app = express();
 
 // ✅ Fix CORS: Allow frontend origin dynamically or allow all (*)
 app.use(cors({
-  origin: "*", // Change to your frontend URL if necessary
+  origin: "https://fan-neon.vercel.app/",
   methods: "GET,POST,PUT,DELETE,OPTIONS",
   allowedHeaders: "Content-Type,Authorization",
   credentials: true,
