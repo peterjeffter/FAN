@@ -13,7 +13,15 @@ app.use(cors({
   allowedHeaders: ["Content-Type", "Authorization"],
   credentials: true
 }));
-app.options("*", cors()); 
+
+// ✅ Always respond to OPTIONS
+app.options("*", cors({
+  origin: "https://fan-neon.vercel.app",
+  credentials: true
+}), (req, res) => {
+  res.sendStatus(200);
+});
+ 
 
 app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
